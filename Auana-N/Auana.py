@@ -8,14 +8,15 @@ import Queue,re,sys#,multiprocessing
 current_directory = os.path.dirname(os.path.abspath(__file__))
 main_path = os.path.dirname(os.path.dirname(current_directory))
 main_path = main_path.replace('\\','/')
-data_path = main_path + "/Desktop/Auana/"
+data_path = main_path + "/FITII/Auana-N/"
+
 
 
 #How many data in fft process 
 DEFAULT_FFT_SIZE = 4096
 #sub-fingerprint depth
 FIN_BIT = 32
-mel = (2596*np.log10(1+3000/700))/float(FIN_BIT)
+mel = (2596*np.log10(1+3000/700))/float(FIN_BIT+1)
 table = {}
 queue = Queue.Queue()
 
@@ -109,6 +110,9 @@ def recognize(tdata,channels,framerate):
 	sdata = yaml.load(source_data)
 	for key in sdata:
 		confidence = find_match(np.array(sdata[key][str(channels)],dtype = np.uint32), tdata, DEFAULT_SEARCH_WIN, framerate)
+		if confidence >= 0.5:
+			source_data.close()
+			return key,confidence
 		if confidence > max_confidence:
 			match_audio = key
 			max_confidence = confidence
@@ -121,7 +125,7 @@ def recognize(tdata,channels,framerate):
 ###########################################################
 #   Get audio fingerprint
 ###########################################################
-def fft_transformation(data,scale,getdb):
+def fft_transformation(data,scale):
 	#hanning window to smooth the edge
 	xs = np.multiply(data, signal.hann(DEFAULT_FFT_SIZE, sym=0))
 	#fft transfer
@@ -130,13 +134,14 @@ def fft_transformation(data,scale,getdb):
 	xfp = 20*np.log10(np.clip(xf, 1e-20, 1e100))
 	
 	sub_fin = 0L
-
+	sumdb=0
+	num=0
 	for n in  xrange(1,FIN_BIT+1):
 		p1 = 0
 		p2 = 0
 		if len(table)< 32:
-			b0 = 700*(10**((n-1)*mel/2596 -1))
-			b1 = 700*(10**((n+1)*mel/2596 -1))
+			b0 = 700*(10**((n-1)*mel/2596)-1)
+			b1 = 700*(10**((n+1)*mel/2596)-1)
 			table.update({n:[b0,b1]})
 		else:
 			b0 = table[n][0]
@@ -145,12 +150,12 @@ def fft_transformation(data,scale,getdb):
 			fp = xfp[int(i/scale)]
 			p1 += fp*i
 			p2 += fp
+			num += 1
+		sumdb += p2
 		if (p1/p2-(b0+b1)/2)/(b1-b0) >= 0:
 			sub_fin = sub_fin | (1<<(n-1))
-	if getdb is True:
-		return sub_fin,p2/(int(b1)+1-int(b0))
-	else:
-		return sub_fin
+
+	return sub_fin,sumdb/num
 
 def get_finger(data,framerate):
 	global DEFAULT_OVERLAP
@@ -168,7 +173,7 @@ def get_finger(data,framerate):
 	sumdb = 0
 	while (len(data) - en) > DEFAULT_FFT_SIZE:
 		#frame size = DEFAULT_FFT_SIZE, one frame time: 0.37s
-		sub_fin, sub_avgdb = fft_transformation(data=data[st:en],scale=scale,getdb=True) 
+		sub_fin, sub_avgdb = fft_transformation(data=data[st:en],scale=scale) 
 		fin.append(sub_fin)
 		sumdb += sub_avgdb
 		st = st + DEFAULT_FFT_SIZE/DEFAULT_OVERLAP
@@ -262,7 +267,7 @@ def auana(filename, save):
 			return "Not Found",average_db
 
 if __name__ == '__main__':
-	dir_audio = 'C:\Users/b51762/Desktop/Auana/sample'
+	dir_audio = 'C:\Users\b51762\Desktop\FITII\Auana-N/sample/'
 	audio_list = []
 	file_num = 0
 	for parent, dirnames, filenames in os.walk(dir_audio):
@@ -274,8 +279,8 @@ if __name__ == '__main__':
 				audio_list.append(path)
 				file_num += 1
 	print file_num
-	auana("C:/Users/b51762/Desktop/Auana/audio_lib/source1.wav",True)
-	auana("C:/Users/b51762/Desktop/Auana/audio_lib/source2.wav",True)
+	auana("C:\Users/b51762\Desktop\FITII\Auana-N/audio_lib/source1.wav",True)
+	auana("C:\Users/b51762\Desktop\FITII\Auana-N/audio_lib/source2.wav",True)
 	print "........."
 	
 	# print auana("C:\Users/b51762\Desktop/127.wav",0)
