@@ -10,5 +10,6 @@
     <string name="title_activity_unit_manager" translateble="false">Manage MCU</string>
     <string name="title_activity_list" translateble="false">My units</string>
     <string name="title_activity_edit_info">Edit Info</string>
+    <string name="title_activity_personal_info">PersonalInfo</string>
 
 </resources>

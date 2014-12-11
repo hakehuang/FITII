@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.SearchView;
 import android.widget.TextView;
 /**
  * 
@@ -20,6 +21,7 @@ public class IndexActivity extends ActionBarActivity {
 	User user;
 	private TextView mTextView;
 	private Button mBtnScan,mBtnList;
+	private SearchView mSearchView;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -27,6 +29,20 @@ public class IndexActivity extends ActionBarActivity {
 		mTextView = (TextView) findViewById(R.id.tv_i_user);
 		user = (User)getApplication();
 		mTextView.setText(user.getId());
+		mSearchView = (SearchView) findViewById(R.id.SearchView);
+		mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+			
+			@Override
+			public boolean onQueryTextSubmit(String query) {
+				callUnitManager(query);
+				return false;
+			}
+			
+			@Override
+			public boolean onQueryTextChange(String newText) {
+				return false;
+			}
+		});
 		mBtnScan = (Button) findViewById(R.id.btn_scan);
 		mBtnScan.setOnClickListener(new OnClickListener() {
 			@Override
@@ -47,7 +63,14 @@ public class IndexActivity extends ActionBarActivity {
 			}
 		});
 	}
-
+	public void callUnitManager(String uid){
+		Intent intent = new Intent();
+		intent.setClass(IndexActivity.this, UnitManager.class);
+		Bundle bundle = new Bundle();
+		bundle.putString("UID", uid);
+		intent.putExtras(bundle);
+		startActivity(intent);
+	}
 	@Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -57,12 +80,7 @@ public class IndexActivity extends ActionBarActivity {
 				Bundle bundle = data.getExtras();
 				Log.d(TAG,bundle.getString("result"));
 				String uid = bundle.getString("result");
-				Intent intent = new Intent();
-				intent.setClass(IndexActivity.this, UnitManager.class);
-				bundle.clear();
-				bundle.putString("UID", uid);
-				intent.putExtras(bundle);
-				startActivity(intent);
+				callUnitManager(uid);
 			}
 			break;
 		}

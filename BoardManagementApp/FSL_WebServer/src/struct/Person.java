@@ -3,13 +3,14 @@ package struct;
 import net.sf.json.JSONObject;
 
 public class Person {
-private String CoreID,name,DeptCode,Location;
+private String CoreID,name,DeptCode,Location,Phone;
 
-	public Person(String CoreID, String name, String DeptCode,String Location) {
+	public Person(String CoreID, String name, String DeptCode,String Location,String Phone) {
 		this.CoreID = CoreID;
 		this.name = name;
 		this.DeptCode = DeptCode;
 		this.Location = Location;
+		this.Phone = Phone;
 	}
 	public String getCoreID(){
 		return CoreID;
@@ -34,7 +35,11 @@ private String CoreID,name,DeptCode,Location;
 		jo.put("name",name);
 		jo.put("DeptCode", DeptCode);
 		jo.put("Location", Location);
+		jo.put("Phone", Phone);
 		return jo;
+	}
+	public String getPhone() {
+		return Phone;
 	}
 
 }

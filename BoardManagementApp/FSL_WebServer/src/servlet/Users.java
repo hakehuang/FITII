@@ -59,7 +59,7 @@ public class Users extends HttpServlet {
 			JSONObject jsonObject = JSONObject.fromObject(result);
 			//Sign Up
 			JSONObject jsonReply = new JSONObject();
-			if(jsonObject.containsKey("Name")&&jsonObject.size()==5){
+			if(jsonObject.containsKey("Name")&&jsonObject.size()==6){
 				 jsonReply = SignUp(jsonObject);	
 			}else{//Sign in
 				 jsonReply = Verify(jsonObject);	
@@ -91,7 +91,7 @@ public class Users extends HttpServlet {
 			if(p!=null){// if the CoreID already exist
 				status = "Failed! The user has already exist.";
 			}else{// put user into table
-				p = new Person(CoreID, jsonObject.getString("Name"), jsonObject.getString("DeptID"), jsonObject.getString("Location"));
+				p = new Person(CoreID, jsonObject.getString("Name"), jsonObject.getString("DeptID"), jsonObject.getString("Location"),jsonObject.getString("Phone"));
 				UserInfoQuery.Register(p,jsonObject.getString("Password"));
 				status = "Succeed";
 			}

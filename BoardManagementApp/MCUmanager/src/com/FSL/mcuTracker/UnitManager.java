@@ -60,8 +60,12 @@ public class UnitManager extends ActionBarActivity {
 
 			@Override
 			public void onClick(View v) {
-				// TODO User info
-
+				bundle.clear();
+				Intent intent = new Intent();
+				intent.setClass(UnitManager.this, PersonalInfo.class);
+				bundle.putString("ID", mTvOwner.getText().toString());
+				intent.putExtras(bundle);
+				startActivity(intent);
 			}
 
 		});
@@ -179,7 +183,7 @@ public class UnitManager extends ActionBarActivity {
 		}
 
 		/**
-		 * Update text view to display the infomation of MCU
+		 * Update text view to display the information of MCU
 		 * 
 		 * @param json
 		 * @throws JSONException

@@ -115,13 +115,33 @@
         android:layout_alignParentRight="true"
         android:layout_alignTop="@+id/tv_s_location" />
 
+        <TextView
+        android:id="@+id/tv_s_phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/tv_s_password"
+        android:layout_below="@+id/tv_s_location"
+        android:layout_marginTop="20dp"
+        android:text="Contact Number"
+        android:textColor="#124578" />
+
+    <EditText
+        android:id="@+id/et_s_phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/tv_s_phone"
+        android:layout_alignLeft="@+id/et_s_password"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/tv_s_phone"
+        android:inputType="phone"  />
     <Button
         android:id="@+id/btn_s_register"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/tv_s_location"
-        android:layout_below="@+id/tv_s_location"
+        android:layout_below="@+id/tv_s_phone"
         android:layout_marginTop="20dp"
         android:text="Sign up" />
+
 
 </RelativeLayout>

@@ -27,7 +27,7 @@ import android.widget.TextView;
 
 public class SignUpActivity extends ActionBarActivity{
 	private TextView mTvDialog;
-	private EditText mEtCoreId,mEtName,mEtPassword,mEtLocation,mEtDeptId;
+	private EditText mEtCoreId,mEtName,mEtPassword,mEtLocation,mEtDeptId,mEtPhone;
 	private Button mBtnSubmit;
 	private final String TAG = "SignUpActivity";
 	protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +39,7 @@ public class SignUpActivity extends ActionBarActivity{
 		mEtPassword = (EditText) findViewById(R.id.et_s_password);
 		mEtLocation = (EditText) findViewById(R.id.et_s_location);
 		mEtDeptId = (EditText) findViewById(R.id.et_s_department);
+		mEtPhone = (EditText) findViewById(R.id.et_s_phone);
 		mBtnSubmit = (Button) findViewById(R.id.btn_s_register);
 		mBtnSubmit.setOnClickListener(new OnClickListener() {
 
@@ -64,6 +65,7 @@ public class SignUpActivity extends ActionBarActivity{
 			jsonObj.put("Name", mEtName.getText().toString());
 			jsonObj.put("DeptID", mEtDeptId.getText().toString());
 			jsonObj.put("Location",mEtLocation.getText().toString());
+			jsonObj.put("Phone", mEtPhone.getText().toString());
 			return jsonObj;
 			
 		}

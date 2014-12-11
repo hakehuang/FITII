@@ -20,7 +20,7 @@ public class UserInfoQuery {
 	 */
 	public static Person getPersonInfo(String CoreID) throws SQLException,
 			ClassNotFoundException {
-		String name, DeptCode, Location = "";
+		String name, DeptCode, Location, Phone = "";
 		Person p = null;
 		Statement stmt = connection.conn();
 		String command = "select * from userinfo where `CoreID` ='" + CoreID + "'";
@@ -35,7 +35,8 @@ public class UserInfoQuery {
 			name = rs.getString(2);
 			DeptCode = rs.getString(3);
 			Location = rs.getString(4);
-			p = new Person(CoreID, name, DeptCode, Location);
+			Phone = rs.getString(6);
+			p = new Person(CoreID, name, DeptCode, Location,Phone);
 		}
 		connection.close();
 		return p;
@@ -61,7 +62,7 @@ public class UserInfoQuery {
 			stmt = connection.conn();
 			String command = "Insert INTO userinfo VALUES('" + p.getCoreID()
 					+ "','" + p.getName() + "','" + p.getDeptCode() + "','"
-					+ p.getLocation() + "','" + password + "')";
+					+ p.getLocation() + "','" + password + "','"+p.getPhone()+"')";
 
 			System.out.println(command);
 			stmt.executeUpdate(command);
@@ -122,7 +123,7 @@ public class UserInfoQuery {
 			ResultSet rs = stmt.executeQuery("select * from userinfo");
 			Person p = null;
 			while (rs.next()) {
-				String CoreID, name, DeptCode, Location = "";
+				String CoreID, name, DeptCode, Location,Phone = "";
 				System.out.println(rs.getString(1) + "\t" + rs.getString(2)
 						+ "\t" + rs.getString(3) + "\t" + rs.getString(4)
 						+ "\t" + rs.getString(5));
@@ -130,7 +131,8 @@ public class UserInfoQuery {
 				name = rs.getString(2);
 				DeptCode = rs.getString(3);
 				Location = rs.getString(4);
-				p = new Person(CoreID, name, DeptCode, Location);
+				Phone = rs.getString(6);
+				p = new Person(CoreID, name, DeptCode, Location,Phone);
 				UserList.add(p);
 			}
 			System.out.println(UserList);
