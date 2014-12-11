@@ -296,15 +296,15 @@ public class MainActivity extends ActionBarActivity {
 		@Override
 		protected void onPostExecute(String result) {
 			super.onPostExecute(result);
-			//if (result.equals("true")) {
+			if (result.equals("true")) {
 				User user = (User) getApplication();
 				user.setId(CoreID);
 				Intent in = new Intent(MainActivity.this, IndexActivity.class);
 				in.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				startActivityForResult(in, 0);
 				MainActivity.this.finish();
-			//} else
-				//mTvDialog.setText("Incorrect CoreID or Password!");
+			} else
+				mTvDialog.setText("Incorrect CoreID or Password!");
 
 		}
 	}
