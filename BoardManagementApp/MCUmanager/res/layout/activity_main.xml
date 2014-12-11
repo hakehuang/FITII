@@ -1,0 +1,71 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity" >
+    <TextView
+        android:id="@+id/tv_dialog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="29dp"
+    />
+    <TextView
+        android:id="@+id/tv_username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/tv_dialog"
+        android:text="CoreID"
+        android:textColor="#124578" />
+
+    <EditText
+        android:id="@+id/et_username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/et_password"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/tv_username"
+        android:layout_alignBaseline="@+id/tv_username" >
+
+        <requestFocus />
+    </EditText>
+
+    <TextView
+        android:id="@+id/tv_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/tv_username"
+        android:layout_below="@+id/tv_username"
+        android:layout_marginTop="20dp"
+        android:text="Password"
+        android:textColor="#124578" />
+    <EditText
+        android:id="@+id/et_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/tv_password"
+        android:layout_alignBottom="@+id/tv_password"
+        android:layout_alignParentRight="true"
+        android:ems="10"
+        android:inputType="textPassword" />
+    <Button
+        android:id="@+id/btn_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/et_password"
+        android:layout_below="@+id/et_password"
+        android:layout_marginTop="34dp"
+        android:text="Sign in" />
+
+    <Button
+        android:id="@+id/btn_register"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/btn_login"
+        android:layout_below="@+id/btn_login"
+        android:text="Sign up" />
+
+
+
+</RelativeLayout>

@@ -1,0 +1,184 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+
+       <TableLayout
+            android:id="@+id/TableLayout01"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:shrinkColumns="1" >
+
+            <!-- Master chip on board -->
+
+            <TableRow
+                android:id="@+id/tb1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp" >
+
+                <TextView
+                    android:id="@+id/tv_edit_mcob"
+                    android:layout_width="100dip"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="Master chip on board" >
+                </TextView>
+
+
+                <EditText
+                    android:id="@+id/et_edit_mcob"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="10" >
+                    <requestFocus />
+                </EditText>
+
+            </TableRow>
+
+            <View
+                android:layout_height="1dip"
+                android:background="#FF909090" />
+
+            <!-- Board Rev -->
+
+            <TableRow
+                android:id="@+id/tb2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp" >
+
+                <TextView
+                    android:id="@+id/tv_edit_br"
+                    android:layout_width="20dip"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="Board Rev" >
+                </TextView>
+
+                <EditText
+                    android:id="@+id/et_edit_br"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="textMultiLine" />
+
+            </TableRow>
+
+            <View
+                android:layout_height="1dip"
+                android:background="#FF909090" />
+            <!-- Schematic Rev -->
+
+            <TableRow
+                android:id="@+id/tb3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp" >
+
+                <TextView
+                    android:id="@+id/tv_edit_sr"
+                    android:layout_width="20dip"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="Schematic Rev" >
+                </TextView>
+
+                <EditText
+                    android:id="@+id/et_edit_sr"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="textMultiLine" />
+            </TableRow>
+
+            <View
+                android:layout_height="1dip"
+                android:background="#FF909090" />
+
+
+            <!-- Description -->
+
+            <TableRow
+                android:id="@+id/tb4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp" >
+
+                <TextView
+                    android:id="@+id/tv_edit_dcp"
+                    android:layout_width="20dip"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="Description" >
+                </TextView>
+
+                <EditText
+                    android:id="@+id/et_edit_dcp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="textMultiLine" />
+            </TableRow>
+
+            <View
+                android:layout_height="1dip"
+                android:background="#FF909090" />
+
+            <!-- Pic -->
+
+            <TableRow
+                android:id="@+id/tb5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp" >
+
+                <TextView
+                    android:id="@+id/tv_edit_pic"
+                    android:layout_width="20dip"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="Image" >
+                </TextView>
+
+                <EditText
+                    android:id="@+id/et_edit_pic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="textMultiLine" />
+            </TableRow>
+
+            <View
+                android:layout_height="1dip"
+                android:background="#FF909090" />
+            <!-- Button -->
+
+            <TableRow
+                android:id="@+id/tb6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp" >
+                
+               <Button
+                    android:id="@+id/btn_edit_submit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="Confirm" >
+                </Button>
+            </TableRow>
+        </TableLayout>
+    </ScrollView>
+
+</LinearLayout>
