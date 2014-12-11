@@ -40,9 +40,46 @@ public class MCUInfoQuery {
 		connection.close();
 		return mcu;
 	}
+/**
+ * Search for a list of boards
+ * @param query
+ * @return
+ * @throws SQLException
+ */
+	public static List<MCUnit> searchMCUnitList(String query) throws SQLException {
 
+		List<MCUnit> mList = new ArrayList<MCUnit>();
+		query = query.replaceAll(" ", "");
+		// build person list
+		try {
+			Statement stmt = connection.conn();
+			ResultSet rs = stmt
+					.executeQuery("select * from mcuinfo where `description` LIKE '%"
+							+ query + "%' OR `Board Number` LIKE '%" + query
+							+ "%' ORDER BY `OwnerRegisterDate` DESC");
+			MCUnit mcu = null;
+			while (rs.next()) {
+
+				mcu = new MCUnit(rs.getString(1), rs.getString(2),
+						rs.getString(3), rs.getString(4), rs.getString(5),
+						rs.getString(6), rs.getString(7), rs.getString(8),
+						rs.getString(9), rs.getString(10));
+				mList.add(mcu);
+			}
+
+			// System.out.println(mList);
+
+		} catch (Exception e) {
+			System.out.println(e);
+			e.printStackTrace();
+			return mList;
+		}
+		connection.close();
+		return mList;
+
+	}
 	/**
-	 * 
+	 * Get list of MCUnit relate to CoreID
 	 * @return
 	 * @throws SQLException
 	 */

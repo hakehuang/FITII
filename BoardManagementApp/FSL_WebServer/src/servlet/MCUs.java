@@ -77,8 +77,7 @@ public class MCUs extends HttpServlet {
 					jsonReply.add(JsonObj);
 				}
 				pw.write(jsonReply.toString());
-				// read mcu info / take over mcu
-			} else if (jsonObject.containsKey("Mode")) {
+			} else if (jsonObject.containsKey("Mode")) { //modify or add new board
 				mcu = null;
 				try {
 					result = MCUInfoQuery.modifyInfo(jsonObject);
@@ -86,7 +85,22 @@ public class MCUs extends HttpServlet {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-			} else if (jsonObject.size() == 1) { // read mcu info
+			}else if(jsonObject.containsKey("Search")){
+				JSONArray jsonReply = new JSONArray();
+				String query = jsonObject.getString("Search");
+				List<MCUnit> mList = new ArrayList<MCUnit>();
+				try {
+					mList = MCUInfoQuery.searchMCUnitList(query);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				for (MCUnit unit : mList) {
+					JSONObject JsonObj = unit.getJSON();
+					jsonReply.add(JsonObj);
+				}
+				pw.write(jsonReply.toString());
+			} else if (jsonObject.size() == 1) { // read board info
 				try {
 					String ID = jsonObject.getString("UID");
 					mcu = MCUInfoQuery.getMCUInfo(ID);

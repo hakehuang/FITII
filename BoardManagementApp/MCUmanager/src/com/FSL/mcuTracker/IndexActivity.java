@@ -34,7 +34,9 @@ public class IndexActivity extends ActionBarActivity {
 			
 			@Override
 			public boolean onQueryTextSubmit(String query) {
-				callUnitManager(query);
+				Intent intent = new Intent();
+				intent.setClass(IndexActivity.this, ListActivity.class);
+				callOtherActivity(intent,query);
 				return false;
 			}
 			
@@ -63,9 +65,8 @@ public class IndexActivity extends ActionBarActivity {
 			}
 		});
 	}
-	public void callUnitManager(String uid){
-		Intent intent = new Intent();
-		intent.setClass(IndexActivity.this, UnitManager.class);
+	public void callOtherActivity(Intent intent,String uid){
+
 		Bundle bundle = new Bundle();
 		bundle.putString("UID", uid);
 		intent.putExtras(bundle);
@@ -80,7 +81,9 @@ public class IndexActivity extends ActionBarActivity {
 				Bundle bundle = data.getExtras();
 				Log.d(TAG,bundle.getString("result"));
 				String uid = bundle.getString("result");
-				callUnitManager(uid);
+				Intent intent = new Intent();
+				intent.setClass(IndexActivity.this, UnitManager.class);
+				callOtherActivity(intent,uid);
 			}
 			break;
 		}

@@ -42,10 +42,16 @@ public class ListActivity extends ActionBarActivity {
 		mList = new ArrayList<String>();
 		mListView = (ListView) findViewById(R.id.lv_unit);
 		ListTask mTask = new ListTask();
-		User user = (User) getApplication();
-		String CoreID = user.getId();
-		mTask.execute(CoreID);
 
+		Intent intent = this.getIntent();
+		Bundle bundle = intent.getExtras();
+		if (bundle != null) {
+			mTask.execute("search", bundle.getString("UID"));
+		}else{
+			User user = (User) getApplication();
+			String CoreID = user.getId();
+			mTask.execute(CoreID);
+		}
 		// click item to get the info of item
 		mListView.setOnItemClickListener(new OnItemClickListener() {
 			@Override
@@ -72,7 +78,11 @@ public class ListActivity extends ActionBarActivity {
 			HttpClient hc = new DefaultHttpClient();
 			JSONObject jsonObj = new JSONObject();
 			try {
-				jsonObj.put("OwnerID", params[0]);
+				if (params[0].equals("search")) {
+					jsonObj.put("Search", params[1]);
+				} else {
+					jsonObj.put("OwnerID", params[0]);
+				}
 				HttpPost hp = new HttpPost(address);
 				hp.setEntity(new StringEntity(jsonObj.toString()));
 				HttpResponse response = hc.execute(hp);
@@ -143,9 +153,10 @@ public class ListActivity extends ActionBarActivity {
 				parseArray(result);
 
 				SimpleAdapter adapter = new SimpleAdapter(ListActivity.this,
-						mInfos, R.layout.unitlist, new String[] { "ID","BoardNumber",
-								"Master chip on board", "OwnerID" }, new int[] {
-								R.id.tv_lv_id,R.id.tv_lv_bn, R.id.tv_lv_mcob, R.id.tv_lv_lo });
+						mInfos, R.layout.unitlist, new String[] { "ID",
+								"BoardNumber", "Master chip on board",
+								"OwnerID" }, new int[] { R.id.tv_lv_id,
+								R.id.tv_lv_bn, R.id.tv_lv_mcob, R.id.tv_lv_lo });
 				mListView.setAdapter(adapter);
 				/*
 				 * mListView.setAdapter(new ArrayAdapter(ListActivity.this,
