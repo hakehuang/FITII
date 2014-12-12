@@ -56,7 +56,6 @@ public class MCUs extends HttpServlet {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		System.out.println(result);
 		// Check whether there is a JSON object send by client side
 		if (result.length() > 1) {
 			JSONObject jsonObject = JSONObject.fromObject(result);

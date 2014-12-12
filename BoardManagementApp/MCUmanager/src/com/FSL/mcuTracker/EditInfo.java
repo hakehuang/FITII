@@ -1,6 +1,8 @@
 package com.FSL.mcuTracker;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -11,23 +13,42 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.FSL.mcuTracker.UploadUtil.OnUploadProcessListener;
+
 import android.support.v7.app.ActionBarActivity;
+import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
+import android.os.Handler;
+import android.os.Message;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.Toast;
 
-public class EditInfo extends ActionBarActivity {
+public class EditInfo extends ActionBarActivity implements OnUploadProcessListener{
 	private final String TAG = "EditInfo";
 	EditText mEtMcob, mEtBr, mEtSr, mEtDes, mEtPic;
-	Button mBtnConfirm;
+	ImageView mImageView;
+	Button mBtnConfirm,mBtnUpload;
 	private Bundle bundle;
 	private Intent intent;
-
+	private String picPath;
+	private Uri photoUri;
+	private Boolean uploadPhoto = false;
+	EditTask eTask = new EditTask();
+	String path;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -36,27 +57,107 @@ public class EditInfo extends ActionBarActivity {
 		mEtBr = (EditText) findViewById(R.id.et_edit_br);
 		mEtSr = (EditText) findViewById(R.id.et_edit_sr);
 		mEtDes = (EditText) findViewById(R.id.et_edit_dcp);
-		mEtPic = (EditText) findViewById(R.id.et_edit_pic);
+		mImageView = (ImageView) findViewById(R.id.iv_edit_pic);
 		intent = this.getIntent();
 		bundle = intent.getExtras();
 		mEtMcob.setText(bundle.getString("Master chip on board"));
 		mEtBr.setText(bundle.getString("BoardRev"));
 		mEtSr.setText(bundle.getString("SchematicRev"));
 		mEtDes.setText(bundle.getString("description"));
-		mEtPic.setText(bundle.getString("Pic"));
+		mBtnUpload  = (Button) findViewById(R.id.btn_edit_upload);
 		mBtnConfirm = (Button) findViewById(R.id.btn_edit_submit);
-
+		path = bundle.getString("Pic");
+		this.getContentResolver();
 		mBtnConfirm.setOnClickListener(new OnClickListener() {
-
 			@Override
 			public void onClick(View v) {
-				EditTask eTask = new EditTask();
-				eTask.execute();
+				
+				if(uploadPhoto){
+					toUploadFile();
+				}else
+					eTask.execute();
 			}
 
 		});
+		
+		mBtnUpload.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				String SDState = Environment.getExternalStorageState();
+				if(SDState.equals(Environment.MEDIA_MOUNTED))
+				{
+					Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);//"android.media.action.IMAGE_CAPTURE"
+					ContentValues values = new ContentValues();  
+					photoUri = EditInfo.this.getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);  
+					intent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, photoUri);
+					startActivityForResult(intent,1);
+					uploadPhoto = true;
+				}else{
+					Toast.makeText(EditInfo.this,"take photo and upload", Toast.LENGTH_LONG).show();
+				}
+			}
+
+		});
+		
+		
+	}
+	private Handler handler = new Handler(){
+		@Override
+		public void handleMessage(Message msg) {
+			switch (msg.what) {
+			case 1:
+				String result = (String) msg.obj;
+				eTask.execute(result);
+				break;
+			default:
+				break;
+			}
+			super.handleMessage(msg);
+		}
+		
+	};
+	private String toUploadFile()
+	{
+
+		String fileKey = "pic";
+		UploadUtil uploadUtil = UploadUtil.getInstance();;
+		uploadUtil.setOnUploadProcessListener(this);
+		
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("orderId", "11111");
+		String result = uploadUtil.uploadFile( picPath,fileKey, "http://10.192.252.162:8080/FSL_WebServer/Pic",params);
+		return result;
 	}
 	
+	private void ParsePhoto(int requestCode,Intent data)
+	{
+
+		String[] pojo = {MediaStore.Images.Media.DATA};
+		Cursor cursor = managedQuery(photoUri, pojo, null, null,null);   
+		if(cursor != null )
+		{
+			int columnIndex = cursor.getColumnIndexOrThrow(pojo[0]);
+			cursor.moveToFirst();
+			picPath = cursor.getString(columnIndex);
+			cursor.close();
+		}
+		Log.i(TAG, "imagePath = "+picPath);
+		if(picPath != null && ( picPath.endsWith(".png") || picPath.endsWith(".PNG") ||picPath.endsWith(".jpg") ||picPath.endsWith(".JPG")  ))
+		{
+			Bitmap bm = BitmapFactory.decodeFile(picPath);
+			mImageView.setImageBitmap(bm);
+		}else{
+			Toast.makeText(this, "Wrong Path", Toast.LENGTH_LONG).show();
+		}
+	}
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if(resultCode == Activity.RESULT_OK)
+		{
+			ParsePhoto(requestCode,data);
+		}
+		super.onActivityResult(requestCode, resultCode, data);
+	}
 	private class EditTask extends AsyncTask<String, Void, String> {
 		private String address = "http://10.192.252.162:8080/FSL_WebServer/MCUs";
 
@@ -68,6 +169,12 @@ public class EditInfo extends ActionBarActivity {
 			try {
 				HttpPost hp = new HttpPost(address);
 				jsonObj = buildUploadJson();
+				if(params.length==1){
+					jsonObj.put("Pic", params[0]);
+					Log.d(TAG,"PIC  "+params[0]);
+				}else{
+					jsonObj.put("Pic", path);
+				}
 				hp.setEntity(new StringEntity(jsonObj.toString()));
 				HttpResponse response = hc.execute(hp);
 				if (response.getStatusLine().getStatusCode() == 200) {
@@ -107,7 +214,6 @@ public class EditInfo extends ActionBarActivity {
 			jsonObj.put("BoardRev", mEtBr.getText().toString());
 			jsonObj.put("SchematicRev",mEtSr.getText().toString());
 			jsonObj.put("description", mEtDes.getText().toString());
-			jsonObj.put("Pic", mEtPic.getText().toString());
 			return jsonObj;
 		}
 
@@ -124,5 +230,13 @@ public class EditInfo extends ActionBarActivity {
 			EditInfo.this.finish();
 		}
 	}
+	@Override
+	public void onUploadDone(int responseCode, String message) {
+		Message msg = Message.obtain();
+		msg.what = 1;
+		msg.obj = message;
+		handler.sendMessage(msg);
+	}
+
 
 }

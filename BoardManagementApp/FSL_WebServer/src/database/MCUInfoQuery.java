@@ -35,7 +35,7 @@ public class MCUInfoQuery {
 			mcu = new MCUnit(rs.getString(1), rs.getString(2), rs.getString(3),
 					rs.getString(4), rs.getString(5), rs.getString(6),
 					rs.getString(7), rs.getString(8), rs.getString(9),
-					rs.getString(10));
+					rs.getString(10),rs.getString(11));
 		}
 		connection.close();
 		return mcu;
@@ -63,7 +63,7 @@ public class MCUInfoQuery {
 				mcu = new MCUnit(rs.getString(1), rs.getString(2),
 						rs.getString(3), rs.getString(4), rs.getString(5),
 						rs.getString(6), rs.getString(7), rs.getString(8),
-						rs.getString(9), rs.getString(10));
+						rs.getString(9), rs.getString(10),rs.getString(11));
 				mList.add(mcu);
 			}
 
@@ -99,7 +99,7 @@ public class MCUInfoQuery {
 				mcu = new MCUnit(rs.getString(1), rs.getString(2),
 						rs.getString(3), rs.getString(4), rs.getString(5),
 						rs.getString(6), rs.getString(7), rs.getString(8),
-						rs.getString(9), rs.getString(10));
+						rs.getString(9), rs.getString(10),rs.getString(11));
 				mList.add(mcu);
 			}
 
@@ -114,7 +114,15 @@ public class MCUInfoQuery {
 		return mList;
 
 	}
-
+/**
+ * change owner of the board
+ * @param CoreID
+ * @param ID
+ * @param lastOwner
+ * @return
+ * @throws SQLException
+ * @throws ClassNotFoundException
+ */
 	public static MCUnit register(String CoreID, String ID, String lastOwner)
 			throws SQLException, ClassNotFoundException {
 		MCUnit mcu = getMCUInfo(ID);
@@ -138,7 +146,13 @@ public class MCUInfoQuery {
 		mcu = getMCUInfo(ID);
 		return mcu;
 	}
-
+/**
+ * Modify board infomation or add a new board into database
+ * @param jsonObject
+ * @return
+ * @throws SQLException
+ * @throws ClassNotFoundException
+ */
 	public static String modifyInfo(JSONObject jsonObject) throws SQLException,
 			ClassNotFoundException {
 		String id = "";
@@ -146,7 +160,7 @@ public class MCUInfoQuery {
 		String command = "";
 		// add new unit
 		if (jsonObject.get("Mode").equals("add")) {
-			command = "INSERT INTO mcuinfo (`description`, `Master chip on board`, `Board Rev`, `Schematic Rev`, `Pic`, `OwnerID`, `OwnerRegisterDate`, `Board Number`) VALUES ('"
+			command = "INSERT INTO mcuinfo (`description`, `Master chip on board`, `Board Rev`, `Schematic Rev`, `Pic`, `OwnerID`, `OwnerRegisterDate`, `Board Number`,`Last Update`) VALUES ('"
 					+ jsonObject.getString("description")
 					+ "','"
 					+ jsonObject.getString("Master chip on board")
@@ -162,7 +176,11 @@ public class MCUInfoQuery {
 					+ (new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss"))
 							.format(new Date())
 					+ "','"
-					+ jsonObject.getString("BoardNumber") + "')";
+					+ jsonObject.getString("BoardNumber") 
+					+ "','"
+					+ (new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss"))
+							.format(new Date())					
+					+ "')";
 			stmt.executeUpdate(command);
 
 			id = getMCUInfo(jsonObject.getString("BoardNumber")).getID();
@@ -176,7 +194,10 @@ public class MCUInfoQuery {
 					+ "',  `Board Rev` = '" + jsonObject.getString("BoardRev")
 					+ "',  `Schematic Rev` = '"
 					+ jsonObject.getString("SchematicRev") + "',  `Pic` = '"
-					+ jsonObject.getString("Pic") + "' WHERE ( `ID` ='"
+					+ jsonObject.getString("Pic") +"', `Last Update` = '"
+					+ (new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss"))
+							.format(new Date())	
+					+"' WHERE ( `ID` ='"
 					+ jsonObject.getString("ID") + "')";
 			stmt.executeUpdate(command);
 

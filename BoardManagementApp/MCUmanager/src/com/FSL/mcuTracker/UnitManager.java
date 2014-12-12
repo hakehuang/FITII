@@ -22,6 +22,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -39,7 +40,7 @@ public class UnitManager extends ActionBarActivity {
 	private Bundle bundle;
 	private Intent intent;
 	private JSONObject jsonObj;
-	TextView mTvID, mTvMcob, mTvBr, mTvSr, mTvOwner, mTvRd, mTvLo, mTvDes,
+	TextView mTvID, mTvMcob, mTvBr, mTvSr, mTvOwner, mTvRd, mTvLo, mTvDes,mTvUp,
 			mTvBn;
 	ImageView mIvPic;
 	Button mBtnRegister, mBtnEdit;
@@ -55,7 +56,6 @@ public class UnitManager extends ActionBarActivity {
 		mTvSr = (TextView) findViewById(R.id.tv_unit_displaysr);
 		mTvOwner = (TextView) findViewById(R.id.tv_unit_displayowner);
 		mTvBn = (TextView) findViewById(R.id.tv_unit_displaybn);
-
 		mTvOwner.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -73,6 +73,7 @@ public class UnitManager extends ActionBarActivity {
 		mTvRd = (TextView) findViewById(R.id.tv_unit_displayrd);
 		mTvLo = (TextView) findViewById(R.id.tv_unit_displaylo);
 		mTvDes = (TextView) findViewById(R.id.tv_unit_displaydcp);
+		mTvUp = (TextView) findViewById(R.id.tv_unit_displayup);
 		mIvPic = (ImageView) findViewById(R.id.iv_unit_displaypic);
 		mBtnRegister = (Button) findViewById(R.id.btn_unit_rg);
 		mBtnEdit = (Button) findViewById(R.id.btn_unit_Edit);
@@ -113,6 +114,17 @@ public class UnitManager extends ActionBarActivity {
 
 			}
 		});
+		mIvPic.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				Uri uri = Uri.parse(picpath);
+				Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+				startActivity(intent);
+
+			}
+		});
+	
 	}
 
 	public Bundle parse2Bundle(JSONObject jsonObj) throws JSONException {
@@ -159,7 +171,7 @@ public class UnitManager extends ActionBarActivity {
 						result.put("description", "");
 						result.put("Pic", " ");
 						result.put("BoardNumber", "no record");
-
+						result.put("Last Update","no record");
 					}
 					picpath = result.getString("Pic");
 
@@ -197,6 +209,7 @@ public class UnitManager extends ActionBarActivity {
 			mTvOwner.setText(json.getString("OwnerID"));
 			mTvRd.setText(json.getString("OwnerRegisterDate"));
 			mTvBn.setText(json.getString("BoardNumber"));
+			mTvUp.setText(json.getString("LastUpdate"));
 			// List last 5 owners
 			String LastOwner = "";
 			String[] Owners = json.getString("LastOwner").split(";");
@@ -248,6 +261,7 @@ public class UnitManager extends ActionBarActivity {
 			try {
 
 				// byte[] data = ImageService.getImage(path);
+				Log.e(TAG,picpath);
 				URL url = new URL(picpath);
 				HttpURLConnection con = (HttpURLConnection) url
 						.openConnection();

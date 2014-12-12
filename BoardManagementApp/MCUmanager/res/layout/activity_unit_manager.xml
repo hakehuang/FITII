@@ -8,7 +8,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" >
 
-        <TableLayout
+       <TableLayout
             android:id="@+id/TableLayout01"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -34,6 +34,33 @@
                     android:id="@+id/tv_unit_displayid"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
+            </TableRow>
+
+            <View
+                android:layout_height="1dip"
+                android:background="#FF909090" />
+            <!-- Description -->
+
+            <TableRow
+                android:id="@+id/TableRow7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp" >
+
+                <TextView
+                    android:id="@+id/tv_unit_dcp"
+                    android:layout_width="20dip"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="Description" >
+                </TextView>
+
+                <TextView
+                    android:id="@+id/tv_unit_displaydcp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" >
+                </TextView>
             </TableRow>
 
             <View
@@ -231,26 +258,25 @@
             <View
                 android:layout_height="1dip"
                 android:background="#FF909090" />
-
-            <!-- Description -->
+            
+            <!-- Last Update -->
 
             <TableRow
-                android:id="@+id/TableRow7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
                 android:layout_marginTop="5dp" >
 
                 <TextView
-                    android:id="@+id/tv_unit_dcp"
+                    android:id="@+id/tv_unit_up"
                     android:layout_width="20dip"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
-                    android:text="Description" >
+                    android:text="Last Update" >
                 </TextView>
 
                 <TextView
-                    android:id="@+id/tv_unit_displaydcp"
+                    android:id="@+id/tv_unit_displayup"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" >
                 </TextView>
@@ -259,6 +285,7 @@
             <View
                 android:layout_height="1dip"
                 android:background="#FF909090" />
+
 
             <!-- Pic -->
 
