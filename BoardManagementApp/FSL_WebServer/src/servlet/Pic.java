@@ -89,7 +89,7 @@ public class Pic extends HttpServlet {
 						+ name.substring(point, name.length()) ;
 				index++;
 				File fNew = new File(loadpath, name);
-				String picPath = "http://10.192.252.162:8080/FSL_WebServer/Image/"+name;
+				String picPath = "http://10.192.244.114:8080/FSL_WebServer/Image/"+name;
 				pw.write(picPath);
 				try {
 					item.write(fNew);

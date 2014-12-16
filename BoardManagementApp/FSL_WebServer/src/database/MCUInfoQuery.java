@@ -24,8 +24,8 @@ public class MCUInfoQuery {
 			ClassNotFoundException {
 		MCUnit mcu = null;
 		Statement stmt = connection.conn();
-		String command = "select * from mcuinfo where `ID` ='" + ID
-				+ "' OR `Board Number` = '" + ID + "'";
+		String command = "select * from BoardInfo where `ID` ='" + ID
+				+ "' OR `Board_Number` = '" + ID + "'";
 
 		// System.out.println(command);
 
@@ -54,9 +54,9 @@ public class MCUInfoQuery {
 		try {
 			Statement stmt = connection.conn();
 			ResultSet rs = stmt
-					.executeQuery("select * from mcuinfo where `description` LIKE '%"
-							+ query + "%' OR `Board Number` LIKE '%" + query
-							+ "%' ORDER BY `OwnerRegisterDate` DESC");
+					.executeQuery("select * from BoardInfo where `description` LIKE '%"
+							+ query + "%' OR `Board_Number` LIKE '%" + query
+							+ "%' ORDER BY `Owner_Register_Date` DESC");
 			MCUnit mcu = null;
 			while (rs.next()) {
 
@@ -90,9 +90,9 @@ public class MCUInfoQuery {
 		try {
 			Statement stmt = connection.conn();
 			ResultSet rs = stmt
-					.executeQuery("select * from mcuinfo where `OwnerID` = '"
-							+ coreID + "' OR `LastOwner` LIKE '%" + coreID
-							+ "%' ORDER BY `OwnerRegisterDate` DESC");
+					.executeQuery("select * from BoardInfo where `Owner_ID` = '"
+							+ coreID + "' OR `Last_Owner` LIKE '%" + coreID
+							+ "%' ORDER BY `Owner_Register_Date` DESC");
 			MCUnit mcu = null;
 			while (rs.next()) {
 
@@ -133,11 +133,11 @@ public class MCUInfoQuery {
 		}
 		Owners = lastOwner + ";" + Owners;
 		Statement stmt = connection.conn();
-		String command = "Update mcuinfo SET `OwnerID` ='"
+		String command = "Update BoardInfo SET `Owner_ID` ='"
 				+ CoreID
-				+ "', `LastOwner` = '"
+				+ "', `Last_Owner` = '"
 				+ Owners
-				+ "', `OwnerRegisterDate` = '"
+				+ "', `Owner_Register_Date` = '"
 				+ (new java.text.SimpleDateFormat("yyyy-MM-dd HH/" + ""
 						+ ":mm:ss")).format(new Date()) + "' WHERE ( `ID` ='"
 				+ ID + "')";
@@ -160,7 +160,7 @@ public class MCUInfoQuery {
 		String command = "";
 		// add new unit
 		if (jsonObject.get("Mode").equals("add")) {
-			command = "INSERT INTO mcuinfo (`description`, `Master chip on board`, `Board Rev`, `Schematic Rev`, `Pic`, `OwnerID`, `OwnerRegisterDate`, `Board Number`,`Last Update`) VALUES ('"
+			command = "INSERT INTO BoardInfo (`description`, `Master_chip_on_board`, `Board_Rev`, `Schematic_Rev`, `Pic`, `Owner_ID`, `Owner_Register_Date`, `Board_Number`,`Last_Update`) VALUES ('"
 					+ jsonObject.getString("description")
 					+ "','"
 					+ jsonObject.getString("Master chip on board")
@@ -187,12 +187,12 @@ public class MCUInfoQuery {
 
 			// check if the mcu has been successfully added; // modify unit
 		} else {
-			command = "UPDATE mcuinfo SET `description` = '"
+			command = "UPDATE BoardInfo SET `description` = '"
 					+ jsonObject.getString("description")
-					+ "',  `Master chip on board` = '"
+					+ "',  `Master_chip_on_board` = '"
 					+ jsonObject.getString("Master chip on board")
-					+ "',  `Board Rev` = '" + jsonObject.getString("BoardRev")
-					+ "',  `Schematic Rev` = '"
+					+ "',  `Board_Rev` = '" + jsonObject.getString("BoardRev")
+					+ "',  `Schematic_Rev` = '"
 					+ jsonObject.getString("SchematicRev") + "',  `Pic` = '"
 					+ jsonObject.getString("Pic") +"', `Last Update` = '"
 					+ (new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss"))

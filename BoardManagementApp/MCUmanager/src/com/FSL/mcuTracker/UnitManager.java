@@ -140,7 +140,7 @@ public class UnitManager extends ActionBarActivity {
 	}
 
 	private class ManageTask extends AsyncTask<String, Void, JSONObject> {
-		private String address = "http://10.192.252.162:8080/FSL_WebServer/MCUs";
+		private String address = "http://10.192.244.114:8080/FSL_WebServer/MCUs";
 
 		@Override
 		protected JSONObject doInBackground(String... params) {

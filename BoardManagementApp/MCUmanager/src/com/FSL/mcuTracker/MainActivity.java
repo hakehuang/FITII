@@ -244,7 +244,7 @@ public class MainActivity extends ActionBarActivity {
 	}
 
 	private class LoginTask extends AsyncTask<String, Void, String> {
-		private String address = "http://10.192.252.162:8080/FSL_WebServer/Users";
+		private String address = "http://10.192.244.114:8080/FSL_WebServer/Users";
 
 		@Override
 		protected String doInBackground(String... params) {

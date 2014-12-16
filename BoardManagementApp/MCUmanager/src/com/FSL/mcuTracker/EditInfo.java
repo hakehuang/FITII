@@ -126,7 +126,7 @@ public class EditInfo extends ActionBarActivity implements OnUploadProcessListen
 		
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("orderId", "11111");
-		String result = uploadUtil.uploadFile( picPath,fileKey, "http://10.192.252.162:8080/FSL_WebServer/Pic",params);
+		String result = uploadUtil.uploadFile( picPath,fileKey, "http://10.192.244.114:8080/FSL_WebServer/Pic",params);
 		return result;
 	}
 	
@@ -159,7 +159,7 @@ public class EditInfo extends ActionBarActivity implements OnUploadProcessListen
 		super.onActivityResult(requestCode, resultCode, data);
 	}
 	private class EditTask extends AsyncTask<String, Void, String> {
-		private String address = "http://10.192.252.162:8080/FSL_WebServer/MCUs";
+		private String address = "http://10.192.244.114:8080/FSL_WebServer/MCUs";
 
 		@Override
 		protected String doInBackground(String... params) {

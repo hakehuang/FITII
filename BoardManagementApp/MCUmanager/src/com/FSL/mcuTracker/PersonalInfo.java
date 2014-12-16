@@ -46,7 +46,7 @@ public class PersonalInfo extends ActionBarActivity {
 	}
 
 	private class Task extends AsyncTask<String, Void, JSONObject> {
-		private String address = "http://10.192.252.162:8080/FSL_WebServer/Users";
+		private String address = "http://10.192.244.114:8080/FSL_WebServer/Users";
 
 		@Override
 		protected JSONObject doInBackground(String... params) {

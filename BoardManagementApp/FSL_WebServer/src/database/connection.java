@@ -16,9 +16,9 @@ public class connection {
 	 * @throws SQLException
 	 */
 	public static Statement conn() throws ClassNotFoundException, SQLException {
-		Class.forName("com.mysql.jdbc.Driver");// Á´½ÓÊý¾Ý¿â
-		conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/test",
-				"root", "hellow");
+		Class.forName("com.mysql.jdbc.Driver");
+		conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/board_app",
+				"root", "Happy123");
 		stmt = conn.createStatement();
 		return stmt;
 	}

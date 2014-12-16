@@ -70,7 +70,7 @@ public class ListActivity extends ActionBarActivity {
 	}
 
 	private class ListTask extends AsyncTask<String, Void, JSONArray> {
-		private String address = "http://10.192.252.162:8080/FSL_WebServer/MCUs";
+		private String address = "http://10.192.244.114:8080/FSL_WebServer/MCUs";
 
 		@Override
 		protected JSONArray doInBackground(String... params) {

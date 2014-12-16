@@ -71,7 +71,7 @@ public class SignUpActivity extends ActionBarActivity{
 		}
 		@Override
 		protected String doInBackground(String... params) {
-			String address = "http://10.192.252.162:8080/FSL_WebServer/Users";
+			String address = "http://10.192.244.114:8080/FSL_WebServer/Users";
 			String result = "";
 			HttpClient hc = new DefaultHttpClient();
 			try {
