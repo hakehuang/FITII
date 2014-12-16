@@ -352,11 +352,12 @@ int drawable abc_textfield_search_activated_mtrl_alpha 0x7f020030
 int drawable abc_textfield_search_default_mtrl_alpha 0x7f020031
 int drawable abc_textfield_search_material 0x7f020032
 int drawable ic_launcher 0x7f020033
-int drawable mm_title_back_btn 0x7f020034
-int drawable mm_title_back_focused 0x7f020035
-int drawable mm_title_back_normal 0x7f020036
-int drawable mm_title_back_pressed 0x7f020037
-int drawable mmtitle_bg_alpha 0x7f020038
+int drawable icon 0x7f020034
+int drawable mm_title_back_btn 0x7f020035
+int drawable mm_title_back_focused 0x7f020036
+int drawable mm_title_back_normal 0x7f020037
+int drawable mm_title_back_pressed 0x7f020038
+int drawable mmtitle_bg_alpha 0x7f020039
 int id SearchView 0x7f0a0077
 int id TableLayout01 0x7f0a0063
 int id TableRow1 0x7f0a009c
