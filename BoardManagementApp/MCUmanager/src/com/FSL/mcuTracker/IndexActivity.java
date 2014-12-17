@@ -64,6 +64,15 @@ public class IndexActivity extends ActionBarActivity {
 				startActivity(intent);
 			}
 		});
+		Button mBtnAdd = (Button) findViewById(R.id.btn_add_unit);
+		mBtnAdd.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent();
+				intent.setClass(IndexActivity.this, EditInfo.class);
+				startActivity(intent);
+			}
+		});
 	}
 	public void callOtherActivity(Intent intent,String uid){
 

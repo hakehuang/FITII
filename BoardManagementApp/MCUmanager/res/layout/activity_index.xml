@@ -44,5 +44,15 @@
         android:layout_alignLeft="@+id/btn_scan"
         android:layout_below="@+id/btn_scan"
         android:layout_marginTop="30dp"
-        android:text="List the units" />
+        android:text="List the boards" />
+
+    <Button
+        android:id="@+id/btn_add_unit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/btn_scan"
+        android:layout_below="@+id/btn_list_units"
+        android:layout_marginTop="30dp"
+        android:text="add a new board" />
+
 </RelativeLayout>

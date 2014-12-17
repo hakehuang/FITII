@@ -52,13 +52,10 @@ public class Pic extends HttpServlet {
 			throws ServletException, IOException {
 		PrintWriter pw = response.getWriter();
 		System.out.println(request.getContentType());
-		String temp = request.getSession().getServletContext().getRealPath("/")
-				+ "temp";
+		String temp = "/usr/local/tomcat/webapps/temp";
 		System.out.println("temp=" + temp);
 		// the directory to store files
-		String loadpath = request.getSession().getServletContext()
-				.getRealPath("/")
-				+ "Image";
+		String loadpath = "/usr/local/tomcat/webapps/Image";
 		System.out.println("loadpath=" + loadpath);
 		FileItemFactory factory = new DiskFileItemFactory(4096,new File(temp));
 		ServletFileUpload fu = new ServletFileUpload(factory);
@@ -89,7 +86,7 @@ public class Pic extends HttpServlet {
 						+ name.substring(point, name.length()) ;
 				index++;
 				File fNew = new File(loadpath, name);
-				String picPath = "http://10.192.244.114:8080/FSL_WebServer/Image/"+name;
+				String picPath = "http://10.192.244.114:8080/Image/"+name;
 				pw.write(picPath);
 				try {
 					item.write(fNew);

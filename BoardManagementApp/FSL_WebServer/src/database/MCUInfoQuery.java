@@ -194,7 +194,7 @@ public class MCUInfoQuery {
 					+ "',  `Board_Rev` = '" + jsonObject.getString("BoardRev")
 					+ "',  `Schematic_Rev` = '"
 					+ jsonObject.getString("SchematicRev") + "',  `Pic` = '"
-					+ jsonObject.getString("Pic") +"', `Last Update` = '"
+					+ jsonObject.getString("Pic") +"', `Last_Update` = '"
 					+ (new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss"))
 							.format(new Date())	
 					+"' WHERE ( `ID` ='"

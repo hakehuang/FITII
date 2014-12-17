@@ -35,7 +35,7 @@ public class test extends HttpServlet {
 		StringBuffer sb = new StringBuffer("");
 		String result = "";
 		PrintWriter pw = response.getWriter();	
-		pw.write("+++++Test+++++</br>");
+		pw.write("+++++Test+++++ Version:11:04am 17/12</br>");
 		pw.write(request.getSession().getServletContext().getRealPath("/")+"</br>");
 		try {
 			Person p = UserInfoQuery.getPersonInfo("b12345");

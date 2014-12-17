@@ -12,7 +12,36 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:shrinkColumns="1" >
+            <!-- Board Number -->
 
+            <TableRow
+                android:id="@+id/tbn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp" >
+
+                <TextView
+                    android:id="@+id/tv_edit_bn"
+                    android:layout_width="100dip"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="Board Number" >
+                </TextView>
+
+                <EditText
+                    android:id="@+id/et_edit_bn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="10" >
+                    <requestFocus />
+                </EditText>
+
+            </TableRow>
+
+            <View
+                android:layout_height="1dip"
+                android:background="#FF909090" />
             <!-- Master chip on board -->
 
             <TableRow
@@ -36,7 +65,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ems="10" >
-                    <requestFocus />
+                  
                 </EditText>
 
             </TableRow>
