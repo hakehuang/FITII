@@ -63,7 +63,7 @@
         android:layout_alignRight="@+id/et_password"
         android:layout_below="@+id/et_password"
         android:layout_marginTop="34dp"
-        android:text="Sign in" />
+        android:text="Sign In" />
 
     <Button
         android:id="@+id/btn_register"
@@ -71,6 +71,14 @@
         android:layout_height="wrap_content"
         android:layout_alignRight="@+id/btn_login"
         android:layout_below="@+id/btn_login"
-        android:text="Sign up" />
+        android:text="Sign Up" />
+    
+    <Button
+        android:id="@+id/btn_offline"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/btn_login"
+        android:layout_below="@+id/btn_register"
+        android:text="Offline Mode" />
 
 </RelativeLayout>

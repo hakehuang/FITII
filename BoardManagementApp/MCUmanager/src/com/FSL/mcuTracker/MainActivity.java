@@ -9,7 +9,6 @@ import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
-
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
@@ -22,13 +21,13 @@ import org.apache.http.params.HttpParams;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import com.FSL.mcuTracker.R;
-
 import android.support.v7.app.ActionBarActivity;
+import android.annotation.TargetApi;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -55,7 +54,7 @@ public class MainActivity extends ActionBarActivity {
 	private final String TAG = "MainActivity";
 	private TextView mTvDialog;
 	private EditText mEtUsername, mEtPassword;
-	private Button mBtnLogin, mBtnRegister;
+	private Button mBtnLogin, mBtnRegister, mBtnOffline;
 	private LoginTask mTask;
 	private PopupWindow mPopup;
 	private ListView mListView;
@@ -114,6 +113,17 @@ public class MainActivity extends ActionBarActivity {
 				Intent in = new Intent(MainActivity.this, SignUpActivity.class);
 				startActivity(in);
 			}
+		});
+		mBtnOffline = (Button) findViewById(R.id.btn_offline);
+		mBtnOffline.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				User user = (User) getApplication();
+				user.setId(mEtUsername.getText().toString());
+				Intent in = new Intent(MainActivity.this, IndexActivity.class);
+				in.putExtra("Online", false);
+				startActivity(in);
+			}			
 		});
 		init();
 
@@ -293,6 +303,7 @@ public class MainActivity extends ActionBarActivity {
 
 		}
 
+		@TargetApi(Build.VERSION_CODES.JELLY_BEAN)
 		@Override
 		protected void onPostExecute(String result) {
 			super.onPostExecute(result);
@@ -300,8 +311,8 @@ public class MainActivity extends ActionBarActivity {
 				User user = (User) getApplication();
 				user.setId(CoreID);
 				Intent in = new Intent(MainActivity.this, IndexActivity.class);
-				in.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-				startActivityForResult(in, 0);
+				in.putExtra("Online", true);
+				startActivity(in);
 				MainActivity.this.finish();
 			} else
 				mTvDialog.setText("Incorrect CoreID or Password!");

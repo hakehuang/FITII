@@ -102,6 +102,7 @@ public class UnitManager extends ActionBarActivity {
 			public void onClick(View v) {
 				bundle.clear();
 				Intent intent = new Intent();
+				intent.putExtra("Online",true);
 				intent.setClass(UnitManager.this, EditInfo.class);
 				try {
 					bundle = parse2Bundle(jsonObj);

@@ -56,7 +56,7 @@ public class MCUInfoQuery {
 			ResultSet rs = stmt
 					.executeQuery("select * from BoardInfo where `description` LIKE '%"
 							+ query + "%' OR `Board_Number` LIKE '%" + query
-							+ "%' ORDER BY `Owner_Register_Date` DESC");
+							+ "%' OR `master_chip_on_board` LIKE '%" + query +"%' ORDER BY `Owner_Register_Date` DESC");
 			MCUnit mcu = null;
 			while (rs.next()) {
 
@@ -156,8 +156,15 @@ public class MCUInfoQuery {
 	public static String modifyInfo(JSONObject jsonObject) throws SQLException,
 			ClassNotFoundException {
 		String id = "";
+		// check 
+		MCUnit mcu = getMCUInfo(jsonObject.getString("BoardNumber"));
+		if(mcu!=null&&jsonObject.get("Mode").equals("add")){
+			jsonObject.put("Mode", "modify");
+			jsonObject.put("ID", mcu.getID());
+		}
 		Statement stmt = connection.conn();
 		String command = "";
+
 		// add new unit
 		if (jsonObject.get("Mode").equals("add")) {
 			command = "INSERT INTO BoardInfo (`description`, `Master_chip_on_board`, `Board_Rev`, `Schematic_Rev`, `Pic`, `Owner_ID`, `Owner_Register_Date`, `Board_Number`,`Last_Update`) VALUES ('"

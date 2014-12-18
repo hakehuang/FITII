@@ -17,4 +17,13 @@
 
     </ListView>
 
+    <Button
+        android:id="@+id/btn_upload"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/lv_unit"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/lv_unit"
+        android:text="Upload to server" />
+
 </RelativeLayout>

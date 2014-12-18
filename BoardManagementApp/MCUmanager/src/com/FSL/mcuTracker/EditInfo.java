@@ -13,6 +13,8 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.FSL.local.database.DBOpenHelper;
+import com.FSL.local.database.DataBaseManager;
 import com.FSL.mcuTracker.UploadUtil.OnUploadProcessListener;
 
 import android.support.v7.app.ActionBarActivity;
@@ -20,6 +22,7 @@ import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -50,6 +53,7 @@ public class EditInfo extends ActionBarActivity implements
 	private String picPath;
 	private Uri photoUri;
 	private Boolean uploadPhoto = false;
+	private Boolean Online;
 	EditTask eTask = new EditTask();
 	String path = "";
 
@@ -64,8 +68,12 @@ public class EditInfo extends ActionBarActivity implements
 		mEtDes = (EditText) findViewById(R.id.et_edit_dcp);
 		mImageView = (ImageView) findViewById(R.id.iv_edit_pic);
 		intent = this.getIntent();
+		Online = intent.getBooleanExtra("Online", false);
+		Log.e(TAG,"On Create Online?"+Online);
+		mEtBn.setText(intent.getStringExtra("board_number"));
 		bundle = intent.getExtras();
-		if (bundle != null) {
+		Log.d(TAG,"size: "+bundle.size());
+		if (bundle.size()>4) {
 			mEtBn.setFocusable(false);
 			mEtBn.setFocusableInTouchMode(false);
 			if(bundle.getString("BoardNumber").equals("no record"))
@@ -80,16 +88,22 @@ public class EditInfo extends ActionBarActivity implements
 		} 
 		mBtnUpload = (Button) findViewById(R.id.btn_edit_upload);
 		mBtnConfirm = (Button) findViewById(R.id.btn_edit_submit);
+		if(!Online)
+			mBtnUpload.setVisibility(View.GONE);
 		this.getContentResolver();
 		mBtnConfirm.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-
-				if (uploadPhoto) {
-					toUploadFile();
-				} else
-					eTask.execute();
+				Log.d(TAG,"Online Mode:"+Online);
+				if(Online){
+					if (uploadPhoto) 
+						toUploadFile();
+					 else
+						eTask.execute();
+				}else
+					localStore();
 			}
+
 
 		});
 
@@ -117,7 +131,20 @@ public class EditInfo extends ActionBarActivity implements
 		});
 
 	}
-
+	private void localStore() {
+		DBOpenHelper dbHelper = DataBaseManager.getInstance().getHelper();
+		SQLiteDatabase db = DataBaseManager.getInstance().openDatabase();
+		Boolean exist = dbHelper.isExist(db, mEtBn.getText().toString());
+		if(!exist)
+			dbHelper.insert(db,mEtBn.getText().toString(),mEtDes.getText().toString(),mEtMcob.getText().toString(),mEtBr.getText().toString(),mEtSr.getText().toString());
+		DataBaseManager.getInstance().closeDatabase();
+		intent = new Intent();
+		intent.setClass(EditInfo.this, IndexActivity.class);
+		intent.putExtra("Online", Online);
+		intent.putExtra("Local", true);
+		startActivity(intent);
+		EditInfo.this.finish();
+	}
 	private Handler handler = new Handler() {
 		@Override
 		public void handleMessage(Message msg) {
@@ -203,7 +230,7 @@ public class EditInfo extends ActionBarActivity implements
 					result = new JSONObject(mStrResult).getString("ID");
 
 				} else {
-					Log.e(TAG, "Connection Failed!");
+					Log.e(TAG, "Connection Failed!"+response.getStatusLine().getStatusCode());
 				}
 			} catch (JSONException | IOException e) {
 				e.printStackTrace();
@@ -215,7 +242,7 @@ public class EditInfo extends ActionBarActivity implements
 
 		private JSONObject buildUploadJson() throws JSONException {
 			JSONObject jsonObj = new JSONObject();
-			if (bundle==null) {
+			if (bundle.size()<4) {
 				// add new by click button
 				jsonObj.put("Mode", "add");
 				jsonObj.put("BoardNumber", mEtBn.getText().toString());
@@ -227,6 +254,7 @@ public class EditInfo extends ActionBarActivity implements
 				// modify info
 				jsonObj.put("ID", bundle.getString("ID"));
 				jsonObj.put("Mode", "modify");
+				jsonObj.put("BoardNumber", mEtBn.getText().toString());
 			}
 			User user = (User) getApplication();
 			String CoreID = user.getId();

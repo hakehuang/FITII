@@ -1,5 +1,8 @@
 package com.FSL.mcuTracker;
 
+import com.FSL.local.database.DBOpenHelper;
+import com.FSL.local.database.DataBaseManager;
+
 import android.app.Application;
 
 /**
@@ -8,6 +11,9 @@ import android.app.Application;
  *
  */
 public class User extends Application{
+	public User(){
+		DataBaseManager.initializeInstance(new DBOpenHelper(this));  
+	}
 	private String ID;
 	
 	public String getId(){
