@@ -51,7 +51,7 @@ include 'db.php';
 			echo "<a href='index.php?p=list_board&action=take_over&id=".$row[ID]."' class='btn btn-sm btn-default'>Take Over</a>";
 		}
 		echo"
-		<TD><TD><div class='img_popupdiv' id='board_id_".$row[ID]."_menu' style='position: absolute; margin-left: -500px; margin-top: -80px; opacity: 0.8; display: none;'>
+		<TD><TD><div class='img_popupdiv' id='board_id_".$row[ID]."_menu' style='position: absolute; margin-left: -400px; margin-top: -80px; opacity: 0.8; display: none;'>
                         <img src='".$row[Pic]."' height='300' class='img-rounded'></div>
 						
                 </div>

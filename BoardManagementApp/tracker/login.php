@@ -70,28 +70,24 @@ if(!$_SESSION['username']){
       </tr>
     </table></td>
     <td width="18" align="center"><img src="/image/bg_login.gif" /></td>
-    <td colspan="2" align="center" class="title"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+    <td colspan="2" align="center" class="title">
 	<form class="form-horizontal" name="LoginForm" method="post" action="login.php?action=login" onSubmit="return InputCheck(this)">
 		<div class="form-group">
 			<label for="username" class="col-sm-2 control-label">CoreID</label>
-			<div class="col-sm-10">
+			<div class="col-sm-8">
 				<input type="text" class="form-control" name = "username" id="username" placeholder="Enter CoreID">
 			</div>
 		</div>
 		<div class="form-group">
 			<label for="password" class="col-sm-2 control-label">Password</label>
-			<div class="col-sm-10">
+			<div class="col-sm-8">
 				<input type="password" class="form-control" name = "password" id="password" placeholder="Enter password">
 			</div>
 		</div>
-      <tr>
-        <td height="33" align="right">&nbsp;</td>
-        <td align="left"><input type="submit" id="submit" name="submit" value="Login" class="btn btn-default"  tabindex="4"/>
-		<a href = "index.php?p=register" class='btn btn-default'>Sign Up</a></td>
-		
-	  </tr>
+        <input type="submit" id="submit" name="submit" value="Login" class="btn btn-default"  tabindex="4"/>
+		<a href = "index.php?p=register" class='btn btn-default'>Sign Up</a>
 	  </form>
-    </table></td>
+    </td>
   </tr>
 </table>
 </div>

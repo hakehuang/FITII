@@ -4,7 +4,7 @@
  */
 	session_start();
 	$appVersion = "1.0";
-	if(!$_SESSION['username'] && $_REQUEST["p"] !='register'&& $_REQUEST["p"] !='login' && $_REQUEST["p"] !='about'&& $_REQUEST["p"] !='shopping'){
+	if(!$_SESSION['username'] && $_REQUEST["p"]&&$_REQUEST["p"] !='register'&& $_REQUEST["p"] !='login' && $_REQUEST["p"] !='about'&& $_REQUEST["p"] !='shopping'){
 		header("Location: index.php?p=login");exit;
 	}
 include("header.html");
@@ -14,7 +14,7 @@ if($pf == 'login'){
 	include 'login.php';
 }elseif($pf=='register'){
 	include 'register.php';
-}elseif($pf=='list_board'||$pf==''){
+}elseif($pf=='list_board'){
 	include 'board.php';
 	?>
 			<div class='page-header'>
@@ -25,19 +25,26 @@ if($pf == 'login'){
 			<div class="well">
 			<p>You can use board number, name of master chip and description of board as search words.</p>
 			</div>
-			<form name="SearchForm" method="GET" action="index.php" onSubmit="return InputCheck(this)" class="form-inline" style="float:left;margin-right:10px">
+			<form name="SearchForm" method="GET" action="index.php" onSubmit="return InputCheck(this)" class="form-inline" >
             <div class="form-group">
                 <label for="item_name" class="col-sm-4 control-label">Search for</label>
 				<div class="col-sm-8">
 					<input type="hidden" name="p" value="list_board"/>
 					<input type="text" class="form-control" name = "item_name"id="item_name" tabindex="1" >
+					
 				</div>
 			</div>
-			<input type="submit" value="Search" class="btn btn btn-default"  tabindex="2"/>
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10">
+				<input type="submit" value="Search" class="btn btn btn-default"  tabindex="2"/>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10">
+					<a href = "index.php?p=list_board" class='btn btn-default'>Display All</a></td>
+				</div>
+			</div>
 			</form>
-			<form name="Displayall" method="GET" action="index.php" onSubmit="return InputCheck(this)">
-			<input type="hidden" name="p" value="list_board"/>
-			<input type="submit" value="Display All" class="btn btn btn-default"  />
 			<?	if($_REQUEST['f']){
 			echo "<a href='index.php?p=add_board&bn=".$_REQUEST['f']."'>Not find result? Add a board</a>";}?>
 			</form>
@@ -88,12 +95,47 @@ if($pf == 'login'){
         
         <div class="well">
 			<p>Test Version 2014-12-22</p>
+			<p>Author: B53505 Jingyi Gao</p>
         </div>
        </div>
        </div>
 
 <?
-} 
+} else if($pf==''){
+?>
+			
+			    <div  id="top" class="callbacks_container">  
+			          <div class="caption text-center">
+			          	<div class="slide-text-info">
+			          		<h1>For Android <span>Avaliable Now</span></h1>
+			          		<h2>Made to modify and use anywhere</h2>
+			          		<div class="slide-text">
+			          			<ul>
+			          				<li><span> </span>Scan QR/Barcode </li>
+			          				<li><span> </span>Modify/Add boards </li>
+			          				<li><span> </span>Make phone call to owner</li>
+			          			</ul>
+			          		</div>
+			          		<div class="clearfix"> </div>
+			          		<div class="big-btns">
+			          			<a class="download" href="download/the_tracker_installation.apk"><label> </label>Download</a>
+			          			<a class="view" href="https://prezi.com/xb2hpaei69jp/copy-of-user-guide/"><label> </label>Vew Guide</a>
+			          		</div>
+			          	</div>
+			          </div>
+			    </div>
+			    <div class="clearfix"> </div>
+			    <!-----divice----->
+			    	<div class="divice-demo">
+			    		<img src="image/divice-in-hand.png" title="demo" />
+			    	</div>
+			    <!---//divice----->
+			<!----- //End-slider---->
+			
+<?
+}
+
+
 include("footer.html");
 // END Main page switch
 ?>
