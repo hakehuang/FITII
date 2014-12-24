@@ -23,10 +23,12 @@ import com.FSL.local.database.DataBaseManager;
 
 import android.support.v7.app.ActionBarActivity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -46,11 +48,13 @@ public class ListActivity extends ActionBarActivity {
 	private boolean Online;
 	private boolean localList;
 	private Button mBtnUpload;
-
+	private String addr;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_list);
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+	    addr= prefs.getString("ip","");
 		mList = new ArrayList<String>();
 		mListView = (ListView) findViewById(R.id.lv_unit);
 		Intent intent = this.getIntent();
@@ -129,7 +133,7 @@ public class ListActivity extends ActionBarActivity {
 				cursor.moveToPosition(i);
 				try {
 					HttpClient hc = new DefaultHttpClient();
-					HttpPost hp = new HttpPost("http://10.192.244.114:8080/FSL_WebServer/MCUs");
+					HttpPost hp = new HttpPost(addr+"FSL_WebServer/MCUs");
 					hp.setEntity(new StringEntity(buildJson(cursor).toString()));
 					HttpResponse response = hc.execute(hp);
 					if (response.getStatusLine().getStatusCode() == 200) {
@@ -180,7 +184,7 @@ public class ListActivity extends ActionBarActivity {
 	}
 
 	private class ListTask extends AsyncTask<String, Void, JSONArray> {
-		private String address = "http://10.192.244.114:8080/FSL_WebServer/MCUs";
+		private String address = addr+"FSL_WebServer/MCUs";
 
 		@Override
 		protected JSONArray doInBackground(String... params) {

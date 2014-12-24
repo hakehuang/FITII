@@ -7,7 +7,8 @@
     <uses-sdk
         android:minSdkVersion="11"
         android:targetSdkVersion="21" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:name=".User"
@@ -54,6 +55,10 @@
         <activity
             android:name=".PersonalInfo"
             android:label="@string/title_activity_personal_info" >
+        </activity>
+        <activity
+            android:name=".preferenceActivity"
+            android:label="@string/title_activity_preference" >
         </activity>
     </application>
 

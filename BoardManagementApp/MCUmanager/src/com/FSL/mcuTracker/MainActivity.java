@@ -9,6 +9,7 @@ import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
@@ -21,15 +22,21 @@ import org.apache.http.params.HttpParams;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import com.FSL.mcuTracker.R;
+
 import android.support.v7.app.ActionBarActivity;
 import android.annotation.TargetApi;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -42,6 +49,7 @@ import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.PopupWindow.OnDismissListener;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * 
@@ -50,6 +58,7 @@ import android.widget.TextView;
  */
 public class MainActivity extends ActionBarActivity {
 	String CoreID;
+	private String addr;
 	private ArrayList<String> mList = new ArrayList<String>();
 	private final String TAG = "MainActivity";
 	private TextView mTvDialog;
@@ -97,6 +106,7 @@ public class MainActivity extends ActionBarActivity {
 
 			@Override
 			public void onClick(View v) {
+				getAddr();
 				String username = (mEtUsername).getText().toString();
 				CoreID = username;
 				String password = MD5((mEtPassword).getText().toString());
@@ -128,7 +138,30 @@ public class MainActivity extends ActionBarActivity {
 		init();
 
 	}
-
+	public void getAddr(){
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+	    addr= prefs.getString("ip","");
+	    Log.e(TAG,"ip "+addr);
+	}
+    @Override  
+    public boolean onCreateOptionsMenu(Menu menu) {  
+        // Inflate the menu; this adds items to the action bar if it is present.  
+        getMenuInflater().inflate(R.menu.main, menu);  
+        return true;  
+    }  
+  
+    @Override  
+    public boolean onOptionsItemSelected(MenuItem item) {  
+        switch (item.getItemId()) {  
+        case R.id.action_settings:  
+			Intent in = new Intent(MainActivity.this, preferenceActivity.class);
+			startActivity(in);
+            break;  
+        default:  
+            break;  
+        }  
+        return super.onOptionsItemSelected(item);  
+    }  
 	@SuppressWarnings("unchecked")
 	private void init() {
 		ObjectInputStream in = null;
@@ -251,10 +284,11 @@ public class MainActivity extends ActionBarActivity {
 				mShowing = false;
 			}
 		});
+		
 	}
 
 	private class LoginTask extends AsyncTask<String, Void, String> {
-		private String address = "http://10.192.244.114:8080/FSL_WebServer/Users";
+		private String address = addr+"FSL_WebServer/Users";
 
 		@Override
 		protected String doInBackground(String... params) {

@@ -15,8 +15,10 @@ import org.json.JSONObject;
 import com.FSL.mcuTracker.R;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.View;
@@ -30,9 +32,12 @@ public class SignUpActivity extends ActionBarActivity{
 	private EditText mEtCoreId,mEtName,mEtPassword,mEtLocation,mEtDeptId,mEtPhone;
 	private Button mBtnSubmit;
 	private final String TAG = "SignUpActivity";
+	private String addr;
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_signup);
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+	    addr= prefs.getString("ip","");
 		mTvDialog = (TextView) findViewById(R.id.tv_s_dialog);
 		mEtCoreId = (EditText) findViewById(R.id.et_s_username);
 		mEtName = (EditText) findViewById(R.id.et_s_name);
@@ -71,7 +76,7 @@ public class SignUpActivity extends ActionBarActivity{
 		}
 		@Override
 		protected String doInBackground(String... params) {
-			String address = "http://10.192.244.114:8080/FSL_WebServer/Users";
+			String address = addr+"FSL_WebServer/Users";
 			String result = "";
 			HttpClient hc = new DefaultHttpClient();
 			try {

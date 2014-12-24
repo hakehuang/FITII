@@ -40,7 +40,7 @@ if($_GET['action'] == "logout"){
 			<div class="alert alert-success">
 				<strong>Logging, please be patient</strong> 
 			</div>
-			<script>location.href="./index.php";</script><?
+			<script>location.href="./index.php?p=list_board";</script><?
 		} else {
 			exit('<h3>Login Failed <a href="javascript:history.back(-1);">Return</a><h3>');
 		}

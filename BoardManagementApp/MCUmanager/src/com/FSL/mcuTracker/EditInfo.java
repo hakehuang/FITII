@@ -21,6 +21,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
@@ -31,6 +32,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
@@ -54,11 +56,14 @@ public class EditInfo extends ActionBarActivity implements
 	private Uri photoUri;
 	private Boolean uploadPhoto = false;
 	private Boolean Online;
+	private String addr;
 	EditTask eTask = new EditTask();
 	String path = "";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+	    addr= prefs.getString("ip","");
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_edit_info);
 		mEtBn = (EditText) findViewById(R.id.et_edit_bn);
@@ -171,7 +176,7 @@ public class EditInfo extends ActionBarActivity implements
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("orderId", "11111");
 		String result = uploadUtil.uploadFile(picPath, fileKey,
-				"http://10.192.244.114:8080/FSL_WebServer/Pic", params);
+				addr+"FSL_WebServer/Pic", params);
 		return result;
 	}
 
@@ -204,7 +209,7 @@ public class EditInfo extends ActionBarActivity implements
 	}
 
 	private class EditTask extends AsyncTask<String, Void, String> {
-		private String address = "http://10.192.244.114:8080/FSL_WebServer/MCUs";
+		private String address = addr+"FSL_WebServer/MCUs";
 
 		@Override
 		protected String doInBackground(String... params) {

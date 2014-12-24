@@ -3,8 +3,10 @@ package com.FSL.mcuTracker;
 
 import android.support.v7.app.ActionBarActivity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -24,10 +26,13 @@ public class IndexActivity extends ActionBarActivity {
 	private Button mBtnScan,mBtnList;
 	private SearchView mSearchView;
 	private Boolean Online;
+	private String addr;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_index);
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+	    addr= prefs.getString("ip","");
 		Intent intent = this.getIntent();
 		Online = intent.getBooleanExtra("Online", false);
 		mTextView = (TextView) findViewById(R.id.tv_i_user);
@@ -100,7 +105,7 @@ public class IndexActivity extends ActionBarActivity {
 
 			@Override
 			public void onClick(View v) {
-				Uri uri = Uri.parse("http://10.192.244.114/help.html");
+				Uri uri = Uri.parse(addr+"help.html");
 				Intent intent = new Intent(Intent.ACTION_VIEW, uri);
 				startActivity(intent);
 

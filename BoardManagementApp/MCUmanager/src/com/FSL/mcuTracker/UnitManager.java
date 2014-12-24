@@ -20,6 +20,7 @@ import org.json.JSONObject;
 import android.support.v7.app.ActionBarActivity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -27,6 +28,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -40,6 +42,7 @@ public class UnitManager extends ActionBarActivity {
 	private Bundle bundle;
 	private Intent intent;
 	private JSONObject jsonObj;
+	private String addr;
 	TextView mTvID, mTvMcob, mTvBr, mTvSr, mTvOwner, mTvRd, mTvLo, mTvDes,mTvUp,
 			mTvBn;
 	ImageView mIvPic;
@@ -49,6 +52,8 @@ public class UnitManager extends ActionBarActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+	    addr= prefs.getString("ip","");
 		setContentView(R.layout.activity_unit_manager);
 		mTvID = (TextView) findViewById(R.id.tv_unit_displayid);
 		mTvMcob = (TextView) findViewById(R.id.tv_unit_displaymcob);
@@ -141,7 +146,7 @@ public class UnitManager extends ActionBarActivity {
 	}
 
 	private class ManageTask extends AsyncTask<String, Void, JSONObject> {
-		private String address = "http://10.192.244.114:8080/FSL_WebServer/MCUs";
+		private String address = addr+"FSL_WebServer/MCUs";
 
 		@Override
 		protected JSONObject doInBackground(String... params) {
