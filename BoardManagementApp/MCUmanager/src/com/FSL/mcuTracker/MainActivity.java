@@ -140,7 +140,7 @@ public class MainActivity extends ActionBarActivity {
 	}
 	public void getAddr(){
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-	    addr= prefs.getString("ip","");
+	    addr= prefs.getString("ip","http://10.192.244.114:8080/");
 	    Log.e(TAG,"ip "+addr);
 	}
     @Override  

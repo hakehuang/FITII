@@ -36,7 +36,7 @@ public class PersonalInfo extends ActionBarActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_personal_info);
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-	    addr= prefs.getString("ip","");
+	    addr= prefs.getString("ip","http://10.192.244.114:8080/");
 		mTvCoreID = (TextView) findViewById(R.id.tv_pi_displayCoreID);
 		mTvName = (TextView) findViewById(R.id.tv_pi_displayName);
 		mTvDept = (TextView) findViewById(R.id.tv_pi_displaydc);

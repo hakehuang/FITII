@@ -54,7 +54,7 @@ public class ListActivity extends ActionBarActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_list);
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-	    addr= prefs.getString("ip","");
+	    addr= prefs.getString("ip","http://10.192.244.114:8080/");
 		mList = new ArrayList<String>();
 		mListView = (ListView) findViewById(R.id.lv_unit);
 		Intent intent = this.getIntent();

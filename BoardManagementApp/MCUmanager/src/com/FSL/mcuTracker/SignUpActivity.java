@@ -37,7 +37,7 @@ public class SignUpActivity extends ActionBarActivity{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_signup);
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-	    addr= prefs.getString("ip","");
+	    addr= prefs.getString("ip","http://10.192.244.114:8080/");
 		mTvDialog = (TextView) findViewById(R.id.tv_s_dialog);
 		mEtCoreId = (EditText) findViewById(R.id.et_s_username);
 		mEtName = (EditText) findViewById(R.id.et_s_name);

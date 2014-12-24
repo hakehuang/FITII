@@ -32,7 +32,7 @@ public class IndexActivity extends ActionBarActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_index);
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-	    addr= prefs.getString("ip","");
+	    addr= prefs.getString("ip","http://10.192.244.114:8080/");
 		Intent intent = this.getIntent();
 		Online = intent.getBooleanExtra("Online", false);
 		mTextView = (TextView) findViewById(R.id.tv_i_user);

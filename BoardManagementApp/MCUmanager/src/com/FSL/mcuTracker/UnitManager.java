@@ -53,7 +53,7 @@ public class UnitManager extends ActionBarActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-	    addr= prefs.getString("ip","");
+	    addr= prefs.getString("ip","http://10.192.244.114:8080/");
 		setContentView(R.layout.activity_unit_manager);
 		mTvID = (TextView) findViewById(R.id.tv_unit_displayid);
 		mTvMcob = (TextView) findViewById(R.id.tv_unit_displaymcob);
