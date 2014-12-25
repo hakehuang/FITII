@@ -63,7 +63,7 @@ public class EditInfo extends ActionBarActivity implements
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-	    addr= prefs.getString("ip","");
+	    addr= prefs.getString("ip","http://10.192.244.114:8080/");
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_edit_info);
 		mEtBn = (EditText) findViewById(R.id.et_edit_bn);
@@ -209,7 +209,6 @@ public class EditInfo extends ActionBarActivity implements
 	}
 
 	private class EditTask extends AsyncTask<String, Void, String> {
-		private String address = addr+"FSL_WebServer/MCUs";
 
 		@Override
 		protected String doInBackground(String... params) {
@@ -217,7 +216,7 @@ public class EditInfo extends ActionBarActivity implements
 			HttpClient hc = new DefaultHttpClient();
 			JSONObject jsonObj;
 			try {
-				HttpPost hp = new HttpPost(address);
+				HttpPost hp = new HttpPost(addr+"FSL_WebServer/MCUs");
 				jsonObj = buildUploadJson();
 				if (params.length == 1) {
 					jsonObj.put("Pic", params[0]);

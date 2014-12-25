@@ -100,6 +100,8 @@ public class ListActivity extends ActionBarActivity {
 
 			@Override
 			public void onClick(View v) {
+				mBtnUpload.setFocusable(false);
+				mBtnUpload.setFocusableInTouchMode(false);
 				UploadTask task = new UploadTask();
 				task.execute();
 			}
@@ -125,7 +127,7 @@ public class ListActivity extends ActionBarActivity {
 
 		@Override
 		protected Boolean doInBackground(String... params) {
-
+			
 			DBOpenHelper helper = DataBaseManager.getInstance().getHelper();
 			SQLiteDatabase db = DataBaseManager.getInstance().openDatabase();
 			Cursor cursor = helper.select(db);
@@ -161,8 +163,10 @@ public class ListActivity extends ActionBarActivity {
 		}
 		@Override
 		protected void onPostExecute(Boolean result){
-			if(result)
+			if(result){
 				Toast.makeText(ListActivity.this, "Uploaded", Toast.LENGTH_LONG).show();
+				mBtnUpload.setVisibility(View.GONE);
+			}
 		}
 		private JSONObject buildJson(Cursor curosr) throws JSONException {
 			

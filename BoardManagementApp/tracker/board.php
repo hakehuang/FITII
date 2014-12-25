@@ -32,7 +32,7 @@ include 'db.php';
      <TH>Owner</TH>
      <TH>Last Transfer</TH>
 	 <TH>History</TH>
-	 <TH>Updated</TH><TH></TH><TH></TH></tr></thead><TBody>";
+	 <TH>Updated</TH><TH></TH><TH></TH><TH></TH></tr></thead><TBody>";
 
 
 	while ($row = mysqli_fetch_array($result)) {
@@ -45,15 +45,15 @@ include 'db.php';
         <TD>".$row[Last_Owner]."</TD>
         <TD>".$row[Last_Update]."</TD>
 
-		<TD><a href=index.php?p=update_board&id=".$row[ID].">edit</a></TD><TD>";
+		<TD><a href=index.php?p=update_board&id=".$row[ID]." class='btn btn-sm btn-primary'>edit</a></TD><TD>";
 		if($row[Owner_ID]!= $_SESSION['username']){
 			echo "<a href='index.php?p=list_board&action=take_over&id=".$row[ID]."' class='btn btn-sm btn-default'>Take Over</a>";
 		}
 		echo"
-		<TD><TD><div class='img_popupdiv' id='board_id_".$row[ID]."_menu' style='position: absolute; margin-left: -400px; margin-top: -80px; opacity: 0.8; display: none;'>
+		</TD><TD><div class='img_popupdiv' id='board_id_".$row[ID]."_menu' style='position: absolute; margin-left: -600px; margin-top: -80px; opacity: 0.8; display: none;'>
                         <img src='".$row[Pic]."' height='300' class='img-rounded'></div>
 						
-                </div>
+                </div></TD>
 		</TR>";
   }
   echo "</tbody></TABLE>";

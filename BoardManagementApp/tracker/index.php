@@ -14,7 +14,7 @@ if($pf == 'login'){
 	include 'login.php';
 }elseif($pf=='register'){
 	include 'register.php';
-}elseif($pf=='list_board'){
+}elseif($pf=='list_board'||$_REQUEST['f']){
 	include 'board.php';
 	?>
 			<div class='page-header'>
