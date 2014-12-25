@@ -47,7 +47,6 @@ public class IndexActivity extends ActionBarActivity {
 			@Override
 			public boolean onQueryTextSubmit(String query) {
 				Intent intent = new Intent();
-				intent.putExtra("Online", Online);
 				intent.setClass(IndexActivity.this, ListActivity.class);
 				callOtherActivity(intent,query);
 				return false;
@@ -118,6 +117,7 @@ public class IndexActivity extends ActionBarActivity {
 		Log.e(TAG,Online.toString());
 		Bundle bundle = new Bundle();
 		intent.putExtra("Online", Online);
+		intent.putExtra("Local", false);
 		bundle.putString("UID", uid);
 		intent.putExtras(bundle);
 		startActivity(intent);

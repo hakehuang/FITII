@@ -12,6 +12,8 @@ include 'db.php';
 		if($_REQUEST["action"]=="take_over") take_over($id);
 	}
 	openDatabase();
+	$page=isset($_GET['page'])?intval($_GET['page']):1;    
+	$num=10;//lines in every page
 	if($_REQUEST["item_name"]){
 		$search = $_REQUEST["item_name"];
 		$result = mysqli_query($db_conn, "SELECT * FROM BoardInfo WHERE `description` LIKE '%".$search."%' OR `master_chip_on_board` LIKE '%".$search."%' OR `board_number` LIKE '%".$search."%'");
@@ -23,30 +25,49 @@ include 'db.php';
 	if(!$result){
 		printf("Error: %s\n", mysqli_error($db_conn));
 	}
-
+	
+	$total=mysqli_num_rows($result);
+	$pagenum=ceil($total/$num);    
+	If($page>$pagenum || $page == 0){
+       Echo "Error : Can Not Found The page .";
+       Exit;
+	}
+	$offset=($page-1)*$num;   
 	echo "<table class='table table-hover table-striped'><thead>";
 	echo "<tr>
      <TH>Description</TH>
 	 <TH>Board Number</TH>
      <TH>Master Chip</TH>
-     <TH>Owner</TH>
      <TH>Last Transfer</TH>
 	 <TH>History</TH>
-	 <TH>Updated</TH><TH></TH><TH></TH><TH></TH></tr></thead><TBody>";
+	 <TH>Updated</TH>
+     <TH>Owner</TH><TH></TH><TH></TH><TH></TH></tr></thead><TBody>";
+	if($_REQUEST["item_name"]){
+		$search = $_REQUEST["item_name"];
+		$info = mysqli_query($db_conn, "SELECT * FROM BoardInfo WHERE `description` LIKE '%".$search."%' OR `master_chip_on_board` LIKE '%".$search."%' OR `board_number` LIKE '%".$search."%' limit $offset,$num");
+	}else if($_REQUEST["f"]){
+		$info = mysqli_query($db_conn, "SELECT * FROM BoardInfo WHERE `board_number` = '".$_REQUEST["f"]."' limit $offset,$num");	
+	}else{
+		$info = mysqli_query($db_conn, "SELECT * FROM BoardInfo WHERE `owner_id` = '".$_SESSION['username']."' OR `last_owner` LIKE '%".$_SESSION['username']."%' limit $offset,$num");
+	}
 
-
-	while ($row = mysqli_fetch_array($result)) {
-                		echo "<TR id='board_id_".$row[ID]."' onmouseover='showDivLocal(this.id)' onmouseout='hideDivLocal(this.id)'>
+	while ($row = mysqli_fetch_array($info)) {
+                		echo "<TR>
         <TD>".$row[description]."</TD>
-        <TD>".$row[Board_Number]."</TD>
+        <TD id='board_id_".$row[ID]."' onmouseover='showDivLocal(this.id)' onmouseout='hideDivLocal(this.id)'>".$row[Board_Number]."</TD>
 		<TD>".$row[master_chip_on_board]."</TD>
-        <TD>".$row[Owner_ID]."</TD>
         <TD>".$row[Owner_Register_Date]."</TD>
         <TD>".$row[Last_Owner]."</TD>
         <TD>".$row[Last_Update]."</TD>
-
-		<TD><a href=index.php?p=update_board&id=".$row[ID]." class='btn btn-sm btn-primary'>edit</a></TD><TD>";
-		if($row[Owner_ID]!= $_SESSION['username']){
+        <TD>";
+		$user_result = mysqli_fetch_array(mysqli_query($db_conn, "SELECT * FROM userinfo WHERE `CoreID` = '".$row[Owner_ID]."'"));
+		if($user_result['CoreID']){
+			echo "<a href=user.php?CoreID=".$row[Owner_ID].">".$row[Owner_ID]."</a>";
+		}else{ 
+			echo $row[Owner_ID];
+		}
+		echo "<TD><a href=index.php?p=update_board&id=".$row[ID]." class='btn btn-sm btn-primary'>edit</a></TD><TD>";
+		if(strtolower($row[Owner_ID])!= strtolower($_SESSION['username'])){
 			echo "<a href='index.php?p=list_board&action=take_over&id=".$row[ID]."' class='btn btn-sm btn-default'>Take Over</a>";
 		}
 		echo"
@@ -57,6 +78,32 @@ include 'db.php';
 		</TR>";
   }
   echo "</tbody></TABLE>";
+  echo "<nav>
+  <ul class='pagination'>";
+	$begin = $page - 2;
+	$end = $page + 2;
+	if($begin<1)$begin=1;
+	if($end>$pagenum) $end = $pagenum;
+	$url = $_SERVER["REQUEST_URI"];
+	
+	$p = strpos($url, "&page");
+	if($p>0)
+		$url = substr($url,0,$p);
+	if($page!=1)
+		echo "<li><a href='".$url."&page=".($page - 1)."'>&laquo;</a></li>";
+	for($i=$begin;$i<=$end;$i++){
+		if($i == $page){
+			echo" <li class='active'><a href='".$url."&page=".$i."'>";
+			echo $i;
+			echo "<span class='sr-only'>(current)</span></a></li>";
+		}else{
+			echo" <li><a href='".$url."&page=".$i."'>".$i."</a></li>";
+		}
+	}
+	if($page!=$pagenum)
+		echo "<li><a href='".$url."&page=".($page + 1)."'>&raquo;</a></li>";
+  echo "</ul>
+</nav>";
   closeDatabase();
  }
  function delete($id) {
