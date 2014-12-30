@@ -16,7 +16,13 @@ include 'db.php';
 	$num=10;//lines in every page
 	if($_REQUEST["item_name"]){
 		$search = $_REQUEST["item_name"];
-		$result = mysqli_query($db_conn, "SELECT * FROM BoardInfo WHERE `description` LIKE '%".$search."%' OR `master_chip_on_board` LIKE '%".$search."%' OR `board_number` LIKE '%".$search."%'");
+		$query ="SELECT * FROM BoardInfo WHERE (`description` LIKE '%".$search."%' OR `master_chip_on_board` LIKE '%".$search."%' OR `board_number` LIKE '%".$search."%')";
+		if($_REQUEST["tag"]){
+			$query = $query." AND (`description` LIKE '%".$_REQUEST["tag"]."%' OR `tag` = '".$_REQUEST["tag"]."')";
+		}
+		$result = mysqli_query($db_conn,$query);
+	}else if($_REQUEST["tag"]){
+		$result = mysqli_query($db_conn, "SELECT * FROM BoardInfo WHERE `description` LIKE '%".$_REQUEST["tag"]."%' OR `tag` = '".$_REQUEST["tag"]."'");		
 	}else if($_REQUEST["f"]){
 		$result = mysqli_query($db_conn, "SELECT * FROM BoardInfo WHERE `board_number` = '".$_REQUEST["f"]."'");	
 	}else{
@@ -29,7 +35,7 @@ include 'db.php';
 	$total=mysqli_num_rows($result);
 	$pagenum=ceil($total/$num);    
 	If($page>$pagenum || $page == 0){
-       Echo "Error : Can Not Found The page .";
+       Echo "<div class='alert alert-danger' role='alert'>Oops! Can Not Found The Page.</div>";
        Exit;
 	}
 	$offset=($page-1)*$num;   
@@ -44,7 +50,14 @@ include 'db.php';
      <TH>Owner</TH><TH></TH><TH></TH><TH></TH></tr></thead><TBody>";
 	if($_REQUEST["item_name"]){
 		$search = $_REQUEST["item_name"];
-		$info = mysqli_query($db_conn, "SELECT * FROM BoardInfo WHERE `description` LIKE '%".$search."%' OR `master_chip_on_board` LIKE '%".$search."%' OR `board_number` LIKE '%".$search."%' limit $offset,$num");
+		$query ="SELECT * FROM BoardInfo WHERE (`description` LIKE '%".$search."%' OR `master_chip_on_board` LIKE '%".$search."%' OR `board_number` LIKE '%".$search."%')";
+		if($_REQUEST["tag"]){
+			$query = $query." AND (`description` LIKE '%".$_REQUEST["tag"]."%' OR `tag` = '".$_REQUEST["tag"]."')";
+		}
+		$query = $query." limit $offset,$num";
+		$info = mysqli_query($db_conn,$query);
+	}else if($_REQUEST["tag"]){
+		$info = mysqli_query($db_conn, "SELECT * FROM BoardInfo WHERE `description` LIKE '%".$_REQUEST["tag"]."%' OR `tag` = '".$_REQUEST["tag"]."' limit $offset,$num");
 	}else if($_REQUEST["f"]){
 		$info = mysqli_query($db_conn, "SELECT * FROM BoardInfo WHERE `board_number` = '".$_REQUEST["f"]."' limit $offset,$num");	
 	}else{
@@ -162,5 +175,21 @@ function take_over($id){
 		<script>location.href="./index.php?p=list_board";</script>		
 	<?
 	}
+}
+function tags(){
+    global $db_conn; 
+	openDatabase();
+	$sql="select * from tags";
+	$result=mysqli_query($db_conn,$sql);
+	if($result){	
+		while ($row=mysqli_fetch_array($result)) {
+			if($row['tagname']==$_REQUEST['tag'])
+				echo "<a class='btn btn-info btn-sm active' href='index.php?p=list_board&tag=".$row['tagname']."'>".$row['tagname']."</a> ";
+			else
+				echo "<a class='btn btn-info btn-sm' href='index.php?p=list_board&tag=".$row['tagname']."'>".$row['tagname']."</a> ";
+		}
+	}
+    closeDatabase();
+
 }
  ?>

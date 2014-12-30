@@ -3,7 +3,7 @@
  *      $Id: index.php 2014-12-19 Jingyi Gao $
  */
 	session_start();
-	$appVersion = "2.0";
+	$appVersion = "2.1";
 	if(!$_SESSION['username'] && $_REQUEST["p"]&&$_REQUEST["p"] !='register'&& $_REQUEST["p"] !='login' && $_REQUEST["p"] !='about'&& $_REQUEST["p"] !='shopping'){
 		header("Location: index.php?p=login");exit;
 	}
@@ -22,6 +22,7 @@ if($pf == 'login'){
 		</div>
 		<div class="row">
 		<div class="col-lg-10">
+			<p>Tags: <?tags()?></p>
 			<div class="well">
 			<p>You can use board number, name of master chip and description of board as search words.</p>
 			</div>
@@ -30,6 +31,9 @@ if($pf == 'login'){
                 <label for="item_name" class="col-sm-4 control-label">Search for</label>
 				<div class="col-sm-8">
 					<input type="hidden" name="p" value="list_board"/>
+					<?if($_REQUEST['tag']){?>
+					<input type="hidden" name="tag" value="<?echo $_REQUEST['tag'];?>"/>
+					<?}?>
 					<input type="text" class="form-control" name = "item_name"id="item_name" tabindex="1" >
 					
 				</div>
@@ -94,7 +98,7 @@ if($pf == 'login'){
 		</div>
         
         <div class="well">
-			<p>Test Version 2014-12-25</p>
+			<p>Test Version 2014-12-30</p>
 			<p>Author: B53505 Jingyi Gao</p>
 			<p><a href="https://prezi.com/insvxswnsdsk/online-tracking-system/?utm_campaign=share&utm_medium=copy">View Tutorial</p>
         </div>

@@ -84,7 +84,7 @@ function modify($id){
 	if($uploadimg){
 		$sql= $sql.", `Pic` = '".$path."'";
 	}
-	$sql= $sql.", `Last_Update` = '".$time."' WHERE ( `ID` ='"
+	$sql= $sql.", `Last_Update` = '".$time."', `tag` = '".$_REQUEST["tag"]."'WHERE ( `ID` ='"
 					.$id."')";		
     $result = mysqli_query($db_conn, $sql);
     closeDatabase();
@@ -118,24 +118,19 @@ function add(){
 		?><script>location.href="../index.php?p=update_board&id=<?echo $row['ID'];?>";</script><?
 	}else{
 		$time = date("Y-m-d H:i:s", time());
-		$sql = "INSERT INTO BoardInfo (`description`, `Master_chip_on_board`, `Board_Rev`, `Schematic_Rev`, `Pic`, `Owner_ID`, `Owner_Register_Date`, `Board_Number`,`Last_Update`) VALUES ('"
-					.$_REQUEST["description"]."','"
-					.$_REQUEST["mcob"]."','"
-					.$_REQUEST["boardrev"]."','"
-					.$_REQUEST["schematicrev"]."'";
 		if($uploadimg){
-			$sql = "INSERT INTO BoardInfo (`description`, `Master_chip_on_board`, `Board_Rev`, `Schematic_Rev`, `Pic`, `Owner_ID`, `Owner_Register_Date`, `Board_Number`,`Last_Update`) VALUES ('"
+			$sql = "INSERT INTO BoardInfo (`description`, `Master_chip_on_board`, `Board_Rev`, `Schematic_Rev`, `Pic`, `Owner_ID`, `Owner_Register_Date`, `Board_Number`,`Last_Update`,`tag`) VALUES ('"
 					.$_REQUEST["description"]."','"
 					.$_REQUEST["mcob"]."','"
 					.$_REQUEST["boardrev"]."','"
-					.$_REQUEST["schematicrev"]."','".$path."','".$_SESSION['username']."','".$time."','".$boardnumber."','".$time."')";
+					.$_REQUEST["schematicrev"]."','".$path."','".$_SESSION['username']."','".$time."','".$boardnumber."','".$time."','".$_REQUEST["tag"]."')";
 
 		}else{
-					$sql = "INSERT INTO BoardInfo (`description`, `Master_chip_on_board`, `Board_Rev`, `Schematic_Rev`, `Pic`, `Owner_ID`, `Owner_Register_Date`, `Board_Number`,`Last_Update`) VALUES ('"
+					$sql = "INSERT INTO BoardInfo (`description`, `Master_chip_on_board`, `Board_Rev`, `Schematic_Rev`, `Pic`, `Owner_ID`, `Owner_Register_Date`, `Board_Number`,`Last_Update`,`tag`) VALUES ('"
 					.$_REQUEST["description"]."','"
 					.$_REQUEST["mcob"]."','"
 					.$_REQUEST["boardrev"]."','"
-					.$_REQUEST["schematicrev"]."',' ','".$_SESSION['username']."','".$time."','".$boardnumber."','".$time."')";
+					.$_REQUEST["schematicrev"]."',' ','".$_SESSION['username']."','".$time."','".$boardnumber."','".$time."','".$_REQUEST["tag"]."')";
 		}
 		echo $sql;
 		$result = mysqli_query($db_conn, $sql);

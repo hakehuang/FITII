@@ -12,6 +12,13 @@ if($_GET['id']){
 	$result=mysqli_query($db_conn,$sql);
 	$row=mysqli_fetch_array($result);
 }
+$query = "select * from tags";
+$res = mysqli_query($db_conn,$query);
+$tags = array();
+while ($find = mysqli_fetch_array($res))
+{
+         $tags[$find['tid']] = $find['tagname'];
+}
 ?>
 <div class='page-header'>
 	<h1><?if($_GET['p']=='update_board'){echo"Edit";}else{echo"Add a new board";}?></h1>
@@ -58,6 +65,15 @@ if($_GET['id']){
 				<input type="text" class="form-control" id="schematicrev" name="schematicrev" placeholder="Board Number" value="<?php echo $row['Schematic_Rev'];?>">
 			</div>
 		</div>	
+		<div class="form-group">
+			<label for="tag" class="col-sm-2 control-label">Tag</label>
+			<div class="col-sm-9">
+				<select class="form-control" id="tag" name="tag">
+				<?php foreach ( $tags as $id=>$tag ) { ?>
+					<option value="<?php echo $tag; ?>"><?php echo $tag; }?></option>
+				</select>
+			</div>		
+		</div>
 		<div class="form-group">
 			<label for="upfile" class="col-sm-2 control-label">Image</label>
 			<div class="col-sm-9">
