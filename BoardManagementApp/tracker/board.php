@@ -14,6 +14,8 @@ include 'db.php';
 	openDatabase();
 	$page=isset($_GET['page'])?intval($_GET['page']):1;    
 	$num=10;//lines in every page
+	if(!$_REQUEST["SearchRadio"]||$_REQUEST["SearchRadio"]=='details'){//search via board number, master_chip_on_board,description
+	
 	if($_REQUEST["item_name"]){
 		$search = $_REQUEST["item_name"];
 		$query ="SELECT * FROM BoardInfo WHERE (`description` LIKE '%".$search."%' OR `master_chip_on_board` LIKE '%".$search."%' OR `board_number` LIKE '%".$search."%')";
@@ -39,15 +41,6 @@ include 'db.php';
        Exit;
 	}
 	$offset=($page-1)*$num;   
-	echo "<table class='table table-hover table-striped'><thead>";
-	echo "<tr>
-     <TH>Description</TH>
-	 <TH>Board Number</TH>
-     <TH>Master Chip</TH>
-     <TH>Last Transfer</TH>
-	 <TH>History</TH>
-	 <TH>Updated</TH>
-     <TH>Owner</TH><TH></TH><TH></TH><TH></TH></tr></thead><TBody>";
 	if($_REQUEST["item_name"]){
 		$search = $_REQUEST["item_name"];
 		$query ="SELECT * FROM BoardInfo WHERE (`description` LIKE '%".$search."%' OR `master_chip_on_board` LIKE '%".$search."%' OR `board_number` LIKE '%".$search."%')";
@@ -61,8 +54,36 @@ include 'db.php';
 	}else if($_REQUEST["f"]){
 		$info = mysqli_query($db_conn, "SELECT * FROM BoardInfo WHERE `board_number` = '".$_REQUEST["f"]."' limit $offset,$num");	
 	}else{
-		$info = mysqli_query($db_conn, "SELECT * FROM BoardInfo WHERE `owner_id` = '".$_SESSION['username']."' OR `last_owner` LIKE '%".$_SESSION['username']."%' limit $offset,$num");
+		$info = mysqli_query($db_conn, "SELECT * FROM BoardInfo WHERE `Owner_ID` = '".$_SESSION['username']."' OR `last_owner` LIKE '%".$_SESSION['username']."%' limit $offset,$num");
 	}
+	}elseif($_REQUEST["SearchRadio"]=='owner'){
+		$result = mysqli_query($db_conn, "SELECT * FROM BoardInfo WHERE `Owner_ID` = '".$_REQUEST["item_name"]."'");	
+		if(!$result){
+			printf("Error: %s\n", mysqli_error($db_conn));
+		}
+	
+		$total=mysqli_num_rows($result);
+		$pagenum=ceil($total/$num);    
+		If($page>$pagenum || $page == 0){
+			Echo "<div class='alert alert-danger' role='alert'>Oops! Can Not Found The Page.</div>";
+			Exit;
+		}
+		$offset=($page-1)*$num;   
+		$info = mysqli_query($db_conn, "SELECT * FROM BoardInfo WHERE `Owner_ID` = '".$_REQUEST["item_name"]."' limit $offset,$num");
+
+	}
+	
+	
+	
+	echo "<table class='table table-hover table-striped'><thead>";
+	echo "<tr>
+     <TH>Description</TH>
+	 <TH>Board Number</TH>
+     <TH>Master Chip</TH>
+     <TH>Last Transfer</TH>
+	 <TH>History</TH>
+	 <TH>Updated</TH>
+     <TH>Owner</TH><TH></TH><TH></TH><TH></TH></tr></thead><TBody>";
 
 	while ($row = mysqli_fetch_array($info)) {
                 		echo "<TR>

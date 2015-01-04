@@ -38,6 +38,12 @@ if($pf == 'login'){
 					
 				</div>
 			</div>
+			<label class="radio-inline">
+				<input type="radio" name="SearchRadio" id="detail_ratio" value="details"  checked> Details
+			</label>
+			<label class="radio-inline">
+				<input type="radio" name="SearchRadio" id="owner_ratio" value="owner"> Owner
+			</label>
 			<div class="form-group">
 				<div class="col-sm-offset-2 col-sm-10">
 				<input type="submit" value="Search" class="btn btn btn-default"  tabindex="2"/>
