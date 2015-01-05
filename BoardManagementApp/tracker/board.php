@@ -113,7 +113,9 @@ include 'db.php';
   }
   echo "</tbody></TABLE>";
   echo "<nav>
+
   <ul class='pagination'>";
+  
 	$begin = $page - 2;
 	$end = $page + 2;
 	if($begin<1)$begin=1;
@@ -134,12 +136,15 @@ include 'db.php';
 			echo" <li><a href='".$url."&page=".$i."'>".$i."</a></li>";
 		}
 	}
+	echo "<li><a><Input style='height:22px' type='text' name='page' size='1' value='1' onKeyPress='gopage(this.value,$pagenum)'> / ".$pagenum."</a></li>";
+
 	if($page!=$pagenum)
 		echo "<li><a href='".$url."&page=".($page + 1)."'>&raquo;</a></li>";
-  echo "</ul>
-</nav>";
+	
+  echo "</ul></nav>";
   closeDatabase();
- }
+  }
+ 
  function delete($id) {
     global $db_conn; 
 	openDatabase();

@@ -33,6 +33,17 @@
         var divobj = document.getElementById(id + '_menu');
         divobj.style.display = 'none';
     }
+	function gopage(page,totalpage){
+		var url = document.URL;
+		if(url.indexOf('page')>0)
+			url = url.substring(0,url.indexOf('&page'));
+		
+		if (event.keyCode==13){
+			if(Math.abs(page)>totalpage) page=totalpage;
+			if(Math.abs(page)>1) window.location=url+'&page='+(page);
+			else  window.location=url;
+		}
+	}
 	</script>
 
   </body>
