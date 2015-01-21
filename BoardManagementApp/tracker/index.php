@@ -55,11 +55,9 @@ if($pf == 'login'){
 				</div>
 			</div>
 			</form>
-			<?	if($_REQUEST['f']){
-			echo "<a href='index.php?p=add_board&bn=".$_REQUEST['f']."'>Not find result? Add a board</a>";}?>
-			</form>
-
-			<?display_list()?>
+			<?	if($_REQUEST['f'])
+			echo "<a href='index.php?p=add_board&bn=".$_REQUEST['f']."'>Not find result? Add a board</a>";?>
+			<?display_list();?>
 		</div>
 
 	</div>

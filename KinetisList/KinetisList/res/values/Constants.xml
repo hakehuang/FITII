@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item type="integer" format="integer" name="HeaderItemId">0x123456</item>
+    <item type="integer" format="integer" name="ParamFilterBoxID">0x223456</item>
+    <item type="integer" format="integer" name="ParamFilterSummary">0x323456</item>
+    <item type="integer" format="integer" name="ChooseColumn_CODE">138188</item>
+    <item type="integer" format="integer" name="PartNumberWidth">180</item>
+	<item type="integer" format="integer" name="TableItemHeight">80</item>
+    
+</resources>

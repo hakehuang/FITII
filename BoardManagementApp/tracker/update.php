@@ -81,6 +81,9 @@ function modify($id){
 					"',  `Board_Rev` = '".$_REQUEST["boardrev"].
 					"',  `Schematic_Rev` = '"
 					.$_REQUEST["schematicrev"]."'";
+	if($_REQUEST["boardnumber"]){
+		$sql = $sql.", `Board_Number` = '".$_REQUEST["boardnumber"]."'";
+	}
 	if($uploadimg){
 		$sql= $sql.", `Pic` = '".$path."'";
 	}

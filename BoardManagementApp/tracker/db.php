@@ -8,7 +8,7 @@ $db_conn = null;
 function openDatabase() {
 	//conection:
     global $db_conn;
-    $db_conn = mysqli_connect("localhost", "root", "Happy123", "board_app");
+    $db_conn = mysqli_connect("localhost", "root", "hellow", "board_app");
     if (!$db_conn) {
         echo "Failed to connect to DB" . mysqli_connect_error();
     }
