@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name" translateble="false">The Tracker</string>
+    <string name="hello_world" translateble="false">Hello world!</string>
+    <string name="action_settings" translateble="false">Settings</string>
+    <string name="login" translateble="false">Sign In</string>
+    <string name="title_activity_index" translateble="false">The Tracker</string>
+    <string name="title_activity_signup" translateble="false">Sign Up</string>
+    <string name="title_activity_unit_manager" translateble="false">Manage Board</string>
+    <string name="title_activity_list" translateble="false">My units</string>
+    <string name="title_activity_edit_info">Edit Info</string>
+    <string name="title_activity_personal_info">PersonalInfo</string>
+    <string name="title_activity_preference">PreferenceActivity</string>
+
+</resources>

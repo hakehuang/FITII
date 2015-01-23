@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" 
+     android:title="Settings">
+    <EditTextPreference 
+		android:key="ip" 
+		android:title="Host Address" 
+		android:summary="Click to enter" 
+		android:dialogTitle="Host Address"
+		android:defaultValue="http://10.192.244.114:8080/" 
+/> 
+
+</PreferenceScreen>

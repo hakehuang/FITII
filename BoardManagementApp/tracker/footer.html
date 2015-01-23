@@ -1,0 +1,50 @@
+
+	</div>  <!-- /container -->
+	<!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="../../assets/js/holder.js"></script>
+    <script src="../../assets/js/jquery.validate.js"></script>
+    <script src="../../assets/js/raphael-min.js"></script>
+	<script src="../../js/bootstrap3-validation.js"></script>
+	<script type="text/javascript">
+	$(function(){
+	$("#RegForm").validation();
+    $("#submit").on('click',function(event){
+      if ($("#form3").valid('Please fill up the fields')==false){
+        return false;
+      }
+    });
+	$("#ModifyForm").validation();
+    $("#submit").on('click',function(event){
+      if ($("#form3").valid('Please fill up the fields')==false){
+        return false;
+      }
+    });
+	})
+	function showDivLocal(id) {
+        var divobj = document.getElementById(id + '_menu');
+        divobj.style.opacity = 0.80;
+        divobj.style.filter = 'alpha(opacity=80)';
+        divobj.style.display = '';
+    }
+
+    function hideDivLocal(id) {
+        var divobj = document.getElementById(id + '_menu');
+        divobj.style.display = 'none';
+    }
+	function gopage(page,totalpage){
+		var url = document.URL;
+		if(url.indexOf('page')>0)
+			url = url.substring(0,url.indexOf('&page'));
+		
+		if (event.keyCode==13){
+			if(Math.abs(page)>totalpage) page=totalpage;
+			if(Math.abs(page)>1) window.location=url+'&page='+(page);
+			else  window.location=url;
+		}
+	}
+	</script>
+
+  </body>
+</html>

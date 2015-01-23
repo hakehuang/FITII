@@ -1,0 +1,109 @@
+body {
+  padding-top: 70px;
+  padding-bottom: 30px;
+}
+.login{
+  padding-top:200px;	
+}
+.theme-dropdown .dropdown-menu {
+  display: block;
+  position: static;
+  margin-bottom: 20px;
+}
+
+.theme-showcase > p > .btn {
+  margin: 5px 0;
+}
+
+.my-jumbo {
+  padding: 40px 15px;
+  text-align: center;
+}
+
+
+.finance-table {
+    margin: 0 auto 0 auto;
+}
+
+.member-table {
+  
+}
+
+
+.member-table th, .finance-table th {
+    text-align: center;
+}
+
+.finance-table td, .finace-table th, .member-table td, .member-table th {
+    border: 1px solid #dddddd; 
+    padding: 5px;
+}
+
+.finance-table td {
+    text-align: right;
+}
+
+.form-table td,th {
+    padding: 5px;
+}
+
+.form-table td:first-child {
+    text-align: right;
+    font-weight: bold;
+}
+.img_popupdiv {
+    background: transparent;
+    border: 0px;
+    line-height: 1.4em;
+    overflow: hidden;
+    text-align: left;
+    width: 300px;
+}
+table.defaulttable {
+	font-family: verdana,arial,sans-serif;
+	font-size:11px;
+	color:#333333;
+	border-width: 1px;
+	border-color: #dddddd;
+	border-collapse: collapse;
+}
+table.defaulttable th {
+	background-color: #f5f5f5;
+	border-width: 1px;
+	padding: 8px;
+	border-style: solid;
+	border-color: #dddddd;
+
+}
+
+table.defaulttable td {
+	border-width: 1px;
+	padding: 8px;
+	border-style: solid;
+	border-color: #dddddd;
+}
+
+label.valid {
+    width: 24px;
+    height: 24px;
+    display: inline-block;
+    text-indent: -9999px;
+    
+}
+
+label.error {
+    font-weight: bold;
+    color: red;
+    padding: 2px 8px;
+    margin-top: 2px;
+}
+
+@media print {
+    body {
+        padding: 0 !important;
+    }
+}  
+
+@page {
+    margin: 5mm 10mm 10mm 9.5mm;
+}
