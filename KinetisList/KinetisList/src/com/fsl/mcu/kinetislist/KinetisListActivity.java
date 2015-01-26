@@ -33,6 +33,7 @@ public class KinetisListActivity extends Activity {
     
     private static ArrayList<String> familyList;
     private static int selectedFamily = 0;
+    private static int seletedSource = 0;
     
     private static ProgressBar loadingBar;
     private static TextView loadingText;
@@ -63,48 +64,80 @@ public class KinetisListActivity extends Activity {
 		loadingText = (TextView)findViewById(R.id.loading_text);
 		browseButton = (Button)findViewById(R.id.browsing);
 	    browseButton.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				familyList = new ArrayList<String>();
-				ArrayList<Integer> countList = new ArrayList<Integer>();
+	    	public void onClick(View v){
+	    		ArrayList<Integer> countList = new ArrayList<Integer>();
+	    		ArrayList<String> sourceList = new ArrayList<String>();
 				try {
-					DeviceList.addTask(DBdefine.MSG.MSG_TASK_LIST_FAMILIES, mMessenger, true, familyList, countList);
+					DeviceList.addTask(DBdefine.MSG.MSG_TASK_LIST_SOURCES, mMessenger, true, sourceList,countList,null);
 				} catch (InterruptedException e) {
 					Toast.makeText(KinetisListActivity.this, "Can not get data from the database.", Toast.LENGTH_LONG);
 					return;
 				//	e.printStackTrace();
 				}
-
-				int nFamily = familyList.size();
-				final String[] families = new String[nFamily];
-				familyList.toArray(families);
-				String[] showList = new String[nFamily];
-				for (int ifm=0; ifm < nFamily; ifm++) {
-					showList[ifm] = familyList.get(ifm) + " (" + countList.get(ifm) + ")";
+				int nSource = sourceList.size();
+				final String[]  sources= new String[nSource];
+				sourceList.toArray(sources);
+				String[] showList = new String[nSource];
+				for (int i=0; i < nSource; i++) {
+					showList[i] = sourceList.get(i) + " (" + countList.get(i) + ")";
 				}
-				AlertDialog.Builder familyDlg = new AlertDialog.Builder(KinetisListActivity.this);
-				familyDlg.setTitle("Select a family");
-				familyDlg.setSingleChoiceItems(showList, selectedFamily, new DialogInterface.OnClickListener() {
+				AlertDialog.Builder sourceDlg = new AlertDialog.Builder(KinetisListActivity.this);
+				sourceDlg.setTitle("Select a parts");
+				sourceDlg.setSingleChoiceItems(showList, seletedSource, new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
-						selectedFamily = which;
+						seletedSource = which;
 					}
 				});
-				familyDlg.setPositiveButton("OK", new OnClickListener() {
+				sourceDlg.setPositiveButton("OK", new OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
-			            Intent intent = new Intent(KinetisListActivity.this, ChartActivity.class);
-			            Bundle bundle = new Bundle();
-			            if (families[selectedFamily].equals("All families"))
-			            	bundle.putString("Family", "*");
-			            else
-			            	bundle.putString("Family", (String) families[selectedFamily]);
-			            intent.putExtras(bundle);
-			            startActivity(intent);
+						familyList = new ArrayList<String>();
+						ArrayList<Integer> countList = new ArrayList<Integer>();
+						try {
+							DeviceList.addTask(DBdefine.MSG.MSG_TASK_LIST_FAMILIES, mMessenger, true, familyList, countList,sources[seletedSource]);
+						} catch (InterruptedException e) {
+							Toast.makeText(KinetisListActivity.this, "Can not get data from the database.", Toast.LENGTH_LONG);
+							return;
+						//	e.printStackTrace();
+						}
+
+						int nFamily = familyList.size();
+						final String[] families = new String[nFamily];
+						familyList.toArray(families);
+						String[] showList = new String[nFamily];
+						for (int ifm=0; ifm < nFamily; ifm++) {
+							showList[ifm] = familyList.get(ifm) + " (" + countList.get(ifm) + ")";
+						}
+						AlertDialog.Builder familyDlg = new AlertDialog.Builder(KinetisListActivity.this);
+						familyDlg.setTitle("Select a family");
+						familyDlg.setSingleChoiceItems(showList, selectedFamily, new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialog, int which) {
+								selectedFamily = which;
+							}
+						});
+						familyDlg.setPositiveButton("OK", new OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialog, int which) {
+					            Intent intent = new Intent(KinetisListActivity.this, ChartActivity.class);
+					            Bundle bundle = new Bundle();
+					            if (families[selectedFamily].equals("All families"))
+					            	bundle.putString("Family", "*");
+					            else
+					            	bundle.putString("Family", (String) families[selectedFamily]);
+					            intent.putExtras(bundle);
+					            startActivity(intent);
+							}
+						});
+						familyDlg.create().show();
+						
 					}
 				});
-				familyDlg.create().show();
-			}	    	
+				sourceDlg.create().show();
+					
+				
+	    	}
 	    });
 
 		// Initialize the database in the background

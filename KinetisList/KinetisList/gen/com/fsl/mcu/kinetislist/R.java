@@ -128,7 +128,7 @@ public final class R {
         public static final int AppTheme=0x7f080001;
     }
     public static final class xml {
-        public static final int stm32_devices=0x7f040000;
+        public static final int newfile=0x7f040000;
         public static final int test=0x7f040001;
     }
 }

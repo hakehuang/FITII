@@ -8,6 +8,7 @@ import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
 import android.content.res.XmlResourceParser;
+import android.util.Log;
 
 public class ParseXmlResource {
 	private static final String TAG = "ParseXmlResource";
@@ -37,16 +38,20 @@ public class ParseXmlResource {
 	private String[] xDeviceRow = null;
 	private String familyName;
 	
-	private static XmlResourceParser xmlParser;
-	public ParseXmlResource(XmlResourceParser xmlParser) {
-		ParseXmlResource.xmlParser = xmlParser;
+	private static XmlResourceParser[] xmlParsers;
+	private static ArrayList<String> sourceName;
+	public ParseXmlResource(ArrayList<String> sourceName,XmlResourceParser... xmlParsers) {
+		ParseXmlResource.sourceName = sourceName;
+		ParseXmlResource.xmlParsers = xmlParsers;
+		
 	}
 
 	public void getData(ArrayList<DBdefine.xHeaderItem> xmlHeader, ArrayList<String[]> xmlDevice)
 				throws XmlPullParserException, IOException
 	{
+	int i = 0;
+	for (XmlResourceParser xmlParser: xmlParsers){
 		familyName = new String();
-
 		int eventType = xmlParser.getEventType();
 		String thisTag;
 		while (eventType != XmlPullParser.END_DOCUMENT) {
@@ -78,9 +83,10 @@ public class ParseXmlResource {
 							xHeader.Visible = true;
 						else
 							xHeader.Visible = Boolean.valueOf(str);
-						
-						HeaderMap.put(xHeader.Name, itemIndex);	// for creating the device row
-						xmlHeader.add(xHeader);
+						if(!HeaderMap.containsKey(xHeader.Name)){
+							HeaderMap.put(xHeader.Name, itemIndex);	// for creating the device row
+							xmlHeader.add(xHeader);
+						}
 					}
 					itemIndex++;
 					break;
@@ -90,8 +96,9 @@ public class ParseXmlResource {
 					itemIndex = 0;
 			// Ignore the device name	
 			//		xmlParser.getAttributeValue(null, ATTR_Name);
-					xDeviceRow = new String[NumColumns];
-					
+					xDeviceRow = new String[NumColumns+1];
+					xDeviceRow[NumColumns] = sourceName.get(i);
+					Log.d(TAG,sourceName.get(i));
 					Integer column = HeaderMap.get("SubFamily");
 					if (column != null)
 						xDeviceRow[column] = familyName;
@@ -132,6 +139,7 @@ public class ParseXmlResource {
 			
 			eventType = xmlParser.next();
 		}
+		i++;
 	}
-
+	}
 }

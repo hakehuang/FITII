@@ -18,13 +18,14 @@ public class DeviceList implements Runnable {
 
 	private static DatabaseManager dbManager;
 	private static waitingRoom nurse;
-
+	//private static int sourceID;
 	private static class Task {
 		int		msg;
 		boolean block;	// if this request is blocked.
 		Messenger replyto;
 		Object objArg1;
 		Object objArg2;
+		Object objArg3;
 	}
 	private static ArrayBlockingQueue<Task> taskQueue;
 	
@@ -55,10 +56,17 @@ public class DeviceList implements Runnable {
 		//		Thread t = Thread.currentThread();
 		//		Log.i(TAG, "Loop Thread: "+ t.getName() + ", ID = " + t.getId() + " msg = " + oneTask.msg);
 				switch (oneTask.msg) {
+				case DBdefine.MSG.MSG_TASK_LIST_SOURCES:
+					ArrayList<String> sourceList =(ArrayList<String>) oneTask.objArg1;
+					ArrayList<Integer> sourcntList = (ArrayList<Integer>) oneTask.objArg2;
+					dbManager.getSources(sourceList,sourcntList);
+					nurse.set();
+					break;
 				case DBdefine.MSG.MSG_TASK_LIST_FAMILIES:
 					ArrayList<String> familyList = (ArrayList<String>) oneTask.objArg1;
 					ArrayList<Integer> cntList = (ArrayList<Integer>) oneTask.objArg2;
-					dbManager.getFamilies(familyList, cntList);
+					String source = (String)oneTask.objArg3;
+					dbManager.getFamilies(source, familyList, cntList);
 			//		if (oneTask.block)
 						nurse.set();
 			//		else
@@ -135,12 +143,13 @@ public class DeviceList implements Runnable {
 		Log.i("DeviceList.printData()", sbd.toString());	// Show the last line
 	}
 */
-	public static void addTask(int taskMsg, Messenger mMessenger, boolean isblock, Object arg1, Object arg2 ) throws InterruptedException {
+	public static void addTask(int taskMsg, Messenger mMessenger, boolean isblock, Object arg1, Object arg2, Object arg3) throws InterruptedException {
 		Task oneTask = new Task();
 		oneTask.msg = taskMsg;
 		oneTask.block = isblock;
 		oneTask.objArg1 = arg1;
 		oneTask.objArg2 = arg2;
+		oneTask.objArg3 = arg3;
 		oneTask.replyto = mMessenger;
 		taskQueue.put(oneTask);
 		

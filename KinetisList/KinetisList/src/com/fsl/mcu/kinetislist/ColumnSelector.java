@@ -37,7 +37,7 @@ public class ColumnSelector extends Activity {
         selectColumn = intent.getExtras().getString("Column");
 	
 		try {
-			DeviceList.addTask(DBdefine.MSG.MSG_TASK_LIST_COLUMN_VALUES, null, true, nowFamily, selectColumn);
+			DeviceList.addTask(DBdefine.MSG.MSG_TASK_LIST_COLUMN_VALUES, null, true, nowFamily, selectColumn,null);
 		} catch (InterruptedException e) {
 			Toast.makeText(this, "Can not get data from the database.", Toast.LENGTH_LONG).show();
 		//	e.printStackTrace();
@@ -121,7 +121,7 @@ public class ColumnSelector extends Activity {
 				boolean refresh = evaluateChanges();
 				if (refresh) {				
 					try {
-						DeviceList.addTask(DBdefine.MSG.MSG_TASK_CHANGE_COLUMN_VALUES, null, true, selectColumn, null);
+						DeviceList.addTask(DBdefine.MSG.MSG_TASK_CHANGE_COLUMN_VALUES, null, true, selectColumn, null, null);
 					} catch (InterruptedException e) {
 						Toast.makeText(ColumnSelector.this, "Can not change data from the database.", Toast.LENGTH_LONG).show();
 						return;

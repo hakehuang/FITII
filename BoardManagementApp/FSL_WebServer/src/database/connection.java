@@ -18,7 +18,7 @@ public class connection {
 	public static Statement conn() throws ClassNotFoundException, SQLException {
 		Class.forName("com.mysql.jdbc.Driver");
 		conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/board_app",
-				"root", "Happy123");
+				"root", "hellow");
 		stmt = conn.createStatement();
 		return stmt;
 	}

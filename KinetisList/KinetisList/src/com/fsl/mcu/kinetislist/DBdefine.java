@@ -22,6 +22,7 @@ public final class DBdefine {
 	    
 	    public static final int MSG_INIT_SCROLL_POSITION = 11;
 	    public static final int MSG_LAST_POSITION = 12;
+		public static final int MSG_TASK_LIST_SOURCES = 13;
     }
     
     public static class HeaderItem {

@@ -36,7 +36,7 @@ public class ChooseColumns extends Activity {
         setContentView(R.layout.select_column);
 
 		try {
-			DeviceList.addTask(DBdefine.MSG.MSG_TASK_LIST_HEADERS, null, true, headerParam, null);
+			DeviceList.addTask(DBdefine.MSG.MSG_TASK_LIST_HEADERS, null, true, headerParam, null, null);
 		} catch (InterruptedException e) {
 			Toast.makeText(ChooseColumns.this, "Can not get header parameters from the database.", Toast.LENGTH_LONG).show();
 			return;
@@ -131,7 +131,7 @@ public class ChooseColumns extends Activity {
         filterChange = false;
         ArrayList<DBdefine.ColumnFilter> colFilters = new ArrayList<DBdefine.ColumnFilter>();
 		try {
-			DeviceList.addTask(DBdefine.MSG.MSG_TASK_LIST_COLUMN_FILTERS, null, true, colFilters, null);
+			DeviceList.addTask(DBdefine.MSG.MSG_TASK_LIST_COLUMN_FILTERS, null, true, colFilters, null, null);
 		} catch (InterruptedException e) {
 			Toast.makeText(ChooseColumns.this, "Can not get header parameters from the database.", Toast.LENGTH_LONG).show();
 			return;
@@ -153,7 +153,7 @@ public class ChooseColumns extends Activity {
 				public void onClick(View v) {
 					try {
 						Log.d(TAG,"clear column filters");
-						DeviceList.addTask(DBdefine.MSG.MSG_TASK_CLEAR_COLUMN_FILTERS, null, true, v.getTag(), null);
+						DeviceList.addTask(DBdefine.MSG.MSG_TASK_CLEAR_COLUMN_FILTERS, null, true, v.getTag(), null, null);
 					} catch (InterruptedException e) {
 						Toast.makeText(ChooseColumns.this, "Can not clear column filters from the database.", Toast.LENGTH_LONG).show();
 						return;
@@ -179,7 +179,7 @@ public class ChooseColumns extends Activity {
         }
 		try {
 			if (Changes)
-				DeviceList.addTask(DBdefine.MSG.MSG_TASK_CHANGE_COLUMN_VISIBLE, null, true, headerParam, null);
+				DeviceList.addTask(DBdefine.MSG.MSG_TASK_CHANGE_COLUMN_VISIBLE, null, true, headerParam, null, null);
 		} catch (InterruptedException e) {
 			Toast.makeText(ChooseColumns.this, "Can not change the visibility of header columns in the database.", Toast.LENGTH_LONG).show();
 			return false;

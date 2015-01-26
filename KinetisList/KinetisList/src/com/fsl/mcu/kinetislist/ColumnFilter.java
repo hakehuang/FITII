@@ -31,7 +31,7 @@ public class ColumnFilter implements View.OnLongClickListener {
 		final String selectColumn = String.valueOf((String)clickedView.getTag());
 		
 		try {
-			DeviceList.addTask(DBdefine.MSG.MSG_TASK_LIST_COLUMN_VALUES, null, true, nowFamily, selectColumn);
+			DeviceList.addTask(DBdefine.MSG.MSG_TASK_LIST_COLUMN_VALUES, null, true, nowFamily, selectColumn,null);
 		} catch (InterruptedException e) {
 			Toast.makeText(myContext, "Can not get data from the database.", Toast.LENGTH_LONG).show();
 			return false;
@@ -89,7 +89,7 @@ public class ColumnFilter implements View.OnLongClickListener {
 				boolean refresh = evaluateChanges();
 				if (refresh) {				
 					try {
-						DeviceList.addTask(DBdefine.MSG.MSG_TASK_CHANGE_COLUMN_VALUES, null, true, selectColumn, null);
+						DeviceList.addTask(DBdefine.MSG.MSG_TASK_CHANGE_COLUMN_VALUES, null, true, selectColumn, null, null);
 					} catch (InterruptedException e) {
 						Toast.makeText(myContext, "Can not change data from the database.", Toast.LENGTH_LONG).show();
 						return;

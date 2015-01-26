@@ -139,7 +139,7 @@ public class ChartActivity extends Activity {
         final Intent intent = getIntent();
 		showFamily = intent.getExtras().getString("Family");
 		try {
-			DeviceList.addTask(DBdefine.MSG.MSG_TASK_LIST_CONTENTS, mMessenger, false, showFamily, null);
+			DeviceList.addTask(DBdefine.MSG.MSG_TASK_LIST_CONTENTS, mMessenger, false, showFamily, null, null);
 		} catch (InterruptedException e) {
 			Toast.makeText(myContext, "Can not get family data from the database.", Toast.LENGTH_LONG).show();
 			return;
@@ -291,17 +291,23 @@ public class ChartActivity extends Activity {
 	//	long startTime = System.currentTimeMillis();
 		String PartNumberText;
 		TextView partText;
+		int TextColor;
 		int numDevices = dList.size();
 		boolean evenOdd = true;
 		for (int iDev = 0; iDev < numDevices; iDev++){
 			PartNumberText = dList.get(iDev).Param[0];
-
+			int index = dList.get(iDev).Param.length;
+			String source = dList.get(iDev).Param[index-1];
+			//Log.d(TAG,source);
+			if (source.equals("Hot parts"))	TextColor = 0xFFFF6C00;
+			else if(source.equals("Conditional parts"))	TextColor = 0xFFFFCC33;
+			else TextColor = 0xFFFF8E3D;
 			partText = new TextView(myContext);
 			partText.setText(PartNumberText);
 			partText.setGravity(android.view.Gravity.CENTER);	//_HORIZONTAL|android.view.Gravity.CENTER_VERTICAL);
 			partText.setWidth(PART_NUMBER_WIDTH);	//R.integer.PartNumberWidth);
 			partText.setHeight(TABLE_ITEM_HEIGHT);	//R.integer.TableItemHeight);
-			partText.setTextColor(0xFFFF6C00);
+			partText.setTextColor(TextColor);
 			partText.setPadding(4,1,4,1);
 			if (evenOdd)
 				partText.setBackgroundColor(0xFFE5E5E5);
@@ -359,7 +365,7 @@ public class ChartActivity extends Activity {
 					if (evenOdd)	lineColor = 0xFFE5E5E5;
 					else			lineColor = 0xFFFFFFFF;
 		
-					for (int iCol = 2; iCol < numColumns; iCol++) {	// Skip field of "Family" & "Part"
+					for (int iCol = 2; iCol < numColumns; iCol++) {	// Skip field of "Family" & "Part " & "Source"
 						// Fill each column with texts
 						tableItem = new TextView(myContext);
 						showText = myDev.Param[iCol];
@@ -406,7 +412,7 @@ public class ChartActivity extends Activity {
 			TableContent_TableLayout.removeAllViews();
 		
 		try {	// To re-load the database contents
-			DeviceList.addTask(DBdefine.MSG.MSG_TASK_LIST_CONTENTS, mMessenger, false, showFamily, null);
+			DeviceList.addTask(DBdefine.MSG.MSG_TASK_LIST_CONTENTS, mMessenger, false, showFamily, null, null);
 		} catch (InterruptedException e) {
 			Toast.makeText(myContext, "Can not get data from the database.", Toast.LENGTH_LONG);
 			return;
