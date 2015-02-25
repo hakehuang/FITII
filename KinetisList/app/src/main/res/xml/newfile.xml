@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FEATURES Name="Conditional Parts">
+  <HEADER>
+    <ITEM Width="60" Name="SubFamily" Data="SubFamily" Type="STRING"/>
+    <ITEM Width="174" Name="MK Part Number" Data="MK Part Number" Type="STRING"/>
+    <ITEM Width="167" Name="Silicon Revision[s]" Data="Silicon Revision[s]" Type="STRING" Show="0"/>
+    <ITEM Width="145" Name="Marking Line1[//Line2]" Data="Marking Line1[//Line2]" Type="STRING" Show="0"/>
+    <ITEM Width="205" Name="Estimated MK Availability Date" Data="Estimated MK Availability Date" Type="STRING" Show="0"/>
+    <ITEM Width="243" Name="Recommended K2 Part Number
+Recommended new L Part Number" Data="Recommended K2 Part Number
+Recommended new L Part Number" Type="STRING"/>
+    <ITEM Width="151" Name="MK Superset Part Number" Data="MK Superset Part Number" Type="STRING"/>
+    <ITEM Width="143" Name="PK Superset Part Number" Data="PK Superset Part Number" Type="STRING"/>
+    <ITEM Width="117" Name="PK Superset Availability Date" Data="PK Superset Availability Date" Type="STRING"/>
+    <ITEM Width="195" Name="Suggested Evaluation Hardware" Data="Suggested Evaluation Hardware" Type="STRING"/>
+    <ITEM Width="93" Name="10Ku S/R" Data="10Ku S/R" Type="DOUBLE"/>
+    <ITEM Width="118" Name="CPU" Data="CPU" Type="STRING"/>
+    <ITEM Width="88" Name="CPU Frequency [MHz]" Data="CPU Frequency [MHz]" Type="INTEGER"/>
+    <ITEM Width="77" Name="Total Flash Memory [KB]" Data="Total Flash Memory [KB]" Type="INTEGER"/>
+    <ITEM Width="72" Name="Flash [KB]" Data="Flash [KB]" Type="INTEGER"/>
+    <ITEM Width="67" Name="FlexNVM[KB]" Data="FlexNVM[KB]" Type="STRING"/>
+    <ITEM Width="65" Name="EEPROM/FlexRAM [KB]" Data="EEPROM/FlexRAM [KB]" Type="STRING"/>
+    <ITEM Width="63" Name="SRAM [KB]" Data="SRAM [KB]" Type="INTEGER"/>
+    <ITEM Width="70" Name="Boot ROM [KB]" Data="Boot ROM [KB]" Type="STRING"/>
+    <ITEM Width="79" Name="Cache [Bytes]" Data="Cache [Bytes]" Type="STRING"/>
+    <ITEM Width="58" Name="DSP" Data="DSP" Type="STRING"/>
+    <ITEM Width="49" Name="MPU" Data="MPU" Type="STRING"/>
+    <ITEM Width="71" Name="Peripheral XBAR" Data="Peripheral XBAR" Type="STRING"/>
+    <ITEM Width="88" Name="DMA [channels]" Data="DMA [channels]" Type="INTEGER"/>
+    <ITEM Width="86" Name="Pin Count" Data="Pin Count" Type="INTEGER"/>
+    <ITEM Width="119" Name="Package" Data="Package" Type="STRING"/>
+    <ITEM Width="119" Name="Dimensions [xyz][mm]" Data="Dimensions [xyz][mm]" Type="STRING"/>
+    <ITEM Width="119" Name="Pitch [mm]" Data="Pitch [mm]" Type="DOUBLE"/>
+    <ITEM Width="63" Name="UART" Data="UART" Type="INTEGER"/>
+    <ITEM Width="313" Name="UART Notes" Data="UART Notes" Type="STRING"/>
+    <ITEM Width="99" Name="SPI [no. of modules]" Data="SPI [no. of modules]" Type="INTEGER"/>
+    <ITEM Width="62" Name="SPI [chip selects]" Data="SPI [chip selects]" Type="STRING"/>
+    <ITEM Width="46" Name="I2C" Data="I2C" Type="INTEGER"/>
+    <ITEM Width="56" Name="I2S" Data="I2S" Type="STRING"/>
+    <ITEM Width="55" Name="CAN" Data="CAN" Type="STRING"/>
+    <ITEM Width="58" Name="FlexIO" Data="FlexIO" Type="STRING"/>
+    <ITEM Width="58" Name="USB OTG LS/FS" Data="USB OTG LS/FS" Type="STRING"/>
+    <ITEM Width="67" Name="USB OTG LS/FS/HS" Data="USB OTG LS/FS/HS" Type="STRING"/>
+    <ITEM Width="304" Name="USB Notes" Data="USB Notes" Type="STRING"/>
+    <ITEM Width="90" Name="Ethernet w/1588" Data="Ethernet w/1588" Type="STRING"/>
+    <ITEM Width="105" Name="External Bus Interface [Flexbus]" Data="External Bus Interface [Flexbus]" Type="STRING"/>
+    <ITEM Width="103" Name="DDR Controller" Data="DDR Controller" Type="STRING"/>
+    <ITEM Width="99" Name="NAND Flash Controller" Data="NAND Flash Controller" Type="STRING"/>
+    <ITEM Width="72" Name="Enhanced SDHC" Data="Enhanced SDHC" Type="STRING"/>
+    <ITEM Width="101" Name="Segment LCD" Data="Segment LCD" Type="STRING"/>
+    <ITEM Width="101" Name="Graphic LCD" Data="Graphic LCD" Type="STRING"/>
+    <ITEM Width="98" Name="TSI[Capacitive Touch] channels" Data="TSI[Capacitive Touch] channels" Type="STRING"/>
+    <ITEM Width="58" Name="Total GPIOS" Data="Total GPIOS" Type="INTEGER"/>
+    <ITEM Width="101" Name="GPIO w interrupt/high drive pins" Data="GPIO w interrupt/high drive pins" Type="STRING"/>
+    <ITEM Width="95" Name="High Drive GPIOs [mA]" Data="High Drive GPIOs [mA]" Type="INTEGER"/>
+    <ITEM Width="74" Name="5V IOS" Data="5V IOS" Type="STRING"/>
+    <ITEM Width="112" Name="Total 16bit PWM Channels" Data="Total 16bit PWM Channels" Type="INTEGER"/>
+    <ITEM Width="86" Name="General Purpose PWM [6ch/2ch]" Data="General Purpose PWM [6ch/2ch]" Type="STRING"/>
+    <ITEM Width="130" Name="Motor Control General purpose PWM [8ch/6ch/2ch]" Data="Motor Control General purpose PWM [8ch/6ch/2ch]" Type="STRING"/>
+    <ITEM Width="119" Name="Quad decoder General purpose PWM [2ch]" Data="Quad decoder General purpose PWM [2ch]" Type="INTEGER"/>
+    <ITEM Width="119" Name="Additional Timers/PWM channel" Data="Additional Timers/PWM channel" Type="STRING"/>
+    <ITEM Width="119" Name="Additional Timers/PWM Type" Data="Additional Timers/PWM Type" Type="STRING"/>
+    <ITEM Width="119" Name="Total 16bit timer channels" Data="Total 16bit timer channels" Type="STRING"/>
+    <ITEM Width="88" Name="Low Power Timer" Data="Low Power Timer" Type="STRING"/>
+    <ITEM Width="146" Name="QuadTimer [4ch]" Data="QuadTimer [4ch]" Type="STRING"/>
+    <ITEM Width="132" Name="32bit Periodic Interupt Timer [PIT]" Data="32bit Periodic Interupt Timer [PIT]" Type="STRING"/>
+    <ITEM Width="94" Name="RTC [32KHz Osc, Vbat]" Data="RTC [32KHz Osc, Vbat]" Type="STRING"/>
+    <ITEM Width="101" Name="RTC_CLKOUT/RTC_WAKEUP" Data="RTC_CLKOUT/RTC_WAKEUP" Type="STRING"/>
+    <ITEM Width="79" Name="Pulse Width Timer" Data="Pulse Width Timer" Type="STRING"/>
+    <ITEM Width="98" Name="CMT[Carrier Module Transmitter]" Data="CMT[Carrier Module Transmitter]" Type="STRING"/>
+    <ITEM Width="88" Name="FTM External CLK" Data="FTM External CLK" Type="INTEGER"/>
+    <ITEM Width="94" Name="Programmable Delay Block" Data="Programmable Delay Block" Type="STRING"/>
+    <ITEM Width="177" Name="Watchdog [SW/HW]" Data="Watchdog [SW/HW]" Type="STRING"/>
+    <ITEM Width="84" Name="Power Management Controller [PMC]" Data="Power Management Controller [PMC]" Type="STRING"/>
+    <ITEM Width="95" Name="Multi Clock Generator [MCG]" Data="Multi Clock Generator [MCG]" Type="STRING"/>
+    <ITEM Width="88" Name="48MHz IRC" Data="48MHz IRC" Type="STRING"/>
+    <ITEM Width="90" Name="intelligent Low Power Oscillator  [iLPO] [~1KHz]" Data="intelligent Low Power Oscillator  [iLPO] [~1KHz]" Type="STRING"/>
+    <ITEM Width="129" Name="Main OSC" Data="Main OSC" Type="STRING"/>
+    <ITEM Width="79" Name="Secondary OSC" Data="Secondary OSC" Type="STRING"/>
+    <ITEM Width="119" Name="No. of ADC modules [16bit/12bit/24bit]" Data="No. of ADC modules [16bit/12bit/24bit]" Type="STRING"/>
+    <ITEM Width="69" Name="ADC0 channels [SE/DP]" Data="ADC0 channels [SE/DP]" Type="STRING"/>
+    <ITEM Width="85" Name="ADC0 [resolution]" Data="ADC0 [resolution]" Type="STRING"/>
+    <ITEM Width="69" Name="ADC1 Channels [SE/DP]" Data="ADC1 Channels [SE/DP]" Type="STRING"/>
+    <ITEM Width="85" Name="ADC1 [resolution]" Data="ADC1 [resolution]" Type="STRING"/>
+    <ITEM Width="67" Name="ADC2 Channels [SE/DP]" Data="ADC2 Channels [SE/DP]" Type="STRING"/>
+    <ITEM Width="81" Name="ADC2 [resolution]" Data="ADC2 [resolution]" Type="STRING"/>
+    <ITEM Width="67" Name="ADC3 Channels [SE/DP]" Data="ADC3 Channels [SE/DP]" Type="STRING"/>
+    <ITEM Width="88" Name="ADC3 [resolution]" Data="ADC3 [resolution]" Type="STRING"/>
+    <ITEM Width="88" Name="ADC4 channels [SE/DP]" Data="ADC4 channels [SE/DP]" Type="STRING"/>
+    <ITEM Width="88" Name="ADC4 [resolution]" Data="ADC4 [resolution]" Type="STRING"/>
+    <ITEM Width="77" Name="Total ADC DP [Channels]" Data="Total ADC DP [Channels]" Type="STRING"/>
+    <ITEM Width="79" Name="Total ADC SE [Channels]" Data="Total ADC SE [Channels]" Type="INTEGER"/>
+    <ITEM Width="63" Name="PGA" Data="PGA" Type="STRING"/>
+    <ITEM Width="78" Name="DAC [6bit/12bit]" Data="DAC [6bit/12bit]" Type="STRING"/>
+    <ITEM Width="226" Name="Notes" Data="Notes" Type="STRING"/>
+    <ITEM Width="86" Name="Analog Comparator" Data="Analog Comparator" Type="INTEGER"/>
+    <ITEM Width="107" Name="Analog Comparator Inputs" Data="Analog Comparator Inputs" Type="STRING"/>
+    <ITEM Width="60" Name="OPAMP" Data="OPAMP" Type="STRING"/>
+    <ITEM Width="60" Name="TRIAMP" Data="TRIAMP" Type="STRING"/>
+    <ITEM Width="72" Name="Vref" Data="Vref" Type="STRING"/>
+    <ITEM Width="81" Name="Random Number Generator" Data="Random Number Generator" Type="STRING"/>
+    <ITEM Width="112" Name="Memory mapped Crytpo Acceleration unit" Data="Memory mapped Crytpo Acceleration unit" Type="STRING"/>
+    <ITEM Width="58" Name="Tamper Detect [DryIce]" Data="Tamper Detect [DryIce]" Type="STRING"/>
+    <ITEM Width="90" Name="Number of External Tamper Pins" Data="Number of External Tamper Pins" Type="STRING"/>
+    <ITEM Width="90" Name="Passive Tamper Pins" Data="Passive Tamper Pins" Type="STRING"/>
+    <ITEM Width="90" Name="Active Tamper Pins" Data="Active Tamper Pins" Type="STRING"/>
+    <ITEM Width="88" Name="CRC" Data="CRC" Type="STRING"/>
+    <ITEM Width="127" Name="Debug" Data="Debug" Type="STRING"/>
+    <ITEM Width="158" Name="Trace" Data="Trace" Type="STRING"/>
+    <ITEM Width="98" Name="Serial Programming Interface" Data="Serial Programming Interface" Type="STRING"/>
+    <ITEM Width="111" Name="True opendrain" Data="True opendrain" Type="STRING"/>
+    <ITEM Width="88" Name="BME [Bit Manipulation Engine]" Data="BME [Bit Manipulation Engine]" Type="STRING"/>
+    <ITEM Width="56" Name="NMI" Data="NMI" Type="STRING"/>
+    <ITEM Width="79" Name="Voltage Range [V]" Data="Voltage Range [V]" Type="STRING"/>
+    <ITEM Width="56" Name="Flash Write V" Data="Flash Write V" Type="DOUBLE"/>
+    <ITEM Width="74" Name="Temp Range [C]" Data="Temp Range [C]" Type="STRING"/>
+    <ITEM Width="142" Name="Data Sheet Document Number" Data="Data Sheet Document Number" Type="STRING"/>
+  </HEADER>
+  <FAMILY Name="testFamily">
+    <DEVICE Name="testststetst">
+      <ITEM Name="MK Part Number" Data="MK02FN128VFM10"/>
+      <ITEM Name="Silicon Revision[s]" Data="0N36M"/>
+      <ITEM Name="Marking Line1[//Line2]" Data="M02J7V"/>
+      <ITEM Name="Estimated MK Availability Date" Data="Available - Check Lead Times"/>
+      <ITEM Name="Recommended K2 Part Number
+Recommended new L Part Number" Data="-"/>
+      <ITEM Name="MK Superset Part Number" Data="MK02FN128VFM10"/>
+      <ITEM Name="PK Superset Part Number" Data="PK02FN128VFM10"/>
+      <ITEM Name="PK Superset Availability Date" Data="-"/>
+      <ITEM Name="Suggested Evaluation Hardware" Data="TWR-K22F120M, FRDM-K22F"/>
+      <ITEM Name="10Ku S/R" Data="1.49"/>
+      <ITEM Name="CPU" Data="ARM Cortex-M4F"/>
+      <ITEM Name="CPU Frequency [MHz]" Data="100.0"/>
+      <ITEM Name="Total Flash Memory [KB]" Data="128.0"/>
+      <ITEM Name="Flash [KB]" Data="128.0"/>
+      <ITEM Name="FlexNVM[KB]" Data="-"/>
+      <ITEM Name="EEPROM/FlexRAM [KB]" Data="-"/>
+      <ITEM Name="SRAM [KB]" Data="16.0"/>
+      <ITEM Name="Boot ROM [KB]" Data="-"/>
+      <ITEM Name="Cache [Bytes]" Data="-"/>
+      <ITEM Name="DSP" Data="YES"/>
+      <ITEM Name="MPU" Data="-"/>
+      <ITEM Name="Peripheral XBAR" Data="-"/>
+      <ITEM Name="DMA [channels]" Data="4.0"/>
+      <ITEM Name="Pin Count" Data="32.0"/>
+      <ITEM Name="Package" Data="QFN"/>
+      <ITEM Name="Dimensions [xyz][mm]" Data="5x5x0.9"/>
+      <ITEM Name="Pitch [mm]" Data="0.5"/>
+      <ITEM Name="UART" Data="2.0"/>
+      <ITEM Name="UART Notes" Data="High Baudrate"/>
+      <ITEM Name="SPI [no. of modules]" Data="1.0"/>
+      <ITEM Name="SPI [chip selects]" Data="4/0/0"/>
+      <ITEM Name="I2C" Data="1.0"/>
+      <ITEM Name="I2S" Data="-"/>
+      <ITEM Name="CAN" Data="-"/>
+      <ITEM Name="FlexIO" Data="-"/>
+      <ITEM Name="USB OTG LS/FS" Data="-"/>
+      <ITEM Name="USB OTG LS/FS/HS" Data="-"/>
+      <ITEM Name="USB Notes" Data="-"/>
+      <ITEM Name="Ethernet w/1588" Data="-"/>
+      <ITEM Name="External Bus Interface [Flexbus]" Data="-"/>
+      <ITEM Name="DDR Controller" Data="-"/>
+      <ITEM Name="NAND Flash Controller" Data="-"/>
+      <ITEM Name="Enhanced SDHC" Data="-"/>
+      <ITEM Name="Segment LCD" Data="-"/>
+      <ITEM Name="Graphic LCD" Data="-"/>
+      <ITEM Name="TSI[Capacitive Touch] channels" Data="-"/>
+      <ITEM Name="Total GPIOS" Data="26.0"/>
+      <ITEM Name="GPIO w interrupt/high drive pins" Data="26/8"/>
+      <ITEM Name="High Drive GPIOs [mA]" Data="18.0"/>
+      <ITEM Name="5V IOS" Data="-"/>
+      <ITEM Name="Total 16bit PWM Channels" Data="10.0"/>
+      <ITEM Name="General Purpose PWM [6ch/2ch]" Data="-"/>
+      <ITEM Name="Motor Control General purpose PWM [8ch/6ch/2ch]" Data="0/1/0"/>
+      <ITEM Name="Quad decoder General purpose PWM [2ch]" Data="2.0"/>
+      <ITEM Name="Additional Timers/PWM channel" Data="-"/>
+      <ITEM Name="Additional Timers/PWM Type" Data="-"/>
+      <ITEM Name="Total 16bit timer channels" Data="AZ8+1"/>
+      <ITEM Name="Low Power Timer" Data="YES"/>
+      <ITEM Name="QuadTimer [4ch]" Data="-"/>
+      <ITEM Name="32bit Periodic Interupt Timer [PIT]" Data="1x4ch"/>
+      <ITEM Name="RTC [32KHz Osc, Vbat]" Data="-"/>
+      <ITEM Name="RTC_CLKOUT/RTC_WAKEUP" Data="NO/NO"/>
+      <ITEM Name="Pulse Width Timer" Data="-"/>
+      <ITEM Name="CMT[Carrier Module Transmitter]" Data="-"/>
+      <ITEM Name="FTM External CLK" Data="2.0"/>
+      <ITEM Name="Programmable Delay Block" Data="YES"/>
+      <ITEM Name="Watchdog [SW/HW]" Data="1/1"/>
+      <ITEM Name="Power Management Controller [PMC]" Data="YES"/>
+      <ITEM Name="Multi Clock Generator [MCG]" Data="YES"/>
+      <ITEM Name="48MHz IRC" Data="YES"/>
+      <ITEM Name="intelligent Low Power Oscillator  [iLPO] [~1KHz]" Data="-"/>
+      <ITEM Name="Main OSC" Data="32-40kHz/3-32MHz"/>
+      <ITEM Name="Secondary OSC" Data="-"/>
+      <ITEM Name="No. of ADC modules [16bit/12bit/24bit]" Data="1/0/0"/>
+      <ITEM Name="ADC0 channels [SE/DP]" Data="13/0"/>
+      <ITEM Name="ADC0 [resolution]" Data="16bit"/>
+      <ITEM Name="ADC1 Channels [SE/DP]" Data="-"/>
+      <ITEM Name="ADC1 [resolution]" Data="-"/>
+      <ITEM Name="ADC2 Channels [SE/DP]" Data="-"/>
+      <ITEM Name="ADC2 [resolution]" Data="-"/>
+      <ITEM Name="ADC3 Channels [SE/DP]" Data="-"/>
+      <ITEM Name="ADC3 [resolution]" Data="-"/>
+      <ITEM Name="ADC4 channels [SE/DP]" Data=""/>
+      <ITEM Name="ADC4 [resolution]" Data="-"/>
+      <ITEM Name="Total ADC DP [Channels]" Data="-"/>
+      <ITEM Name="Total ADC SE [Channels]" Data="13.0"/>
+      <ITEM Name="PGA" Data="-"/>
+      <ITEM Name="DAC [6bit/12bit]" Data="0/1"/>
+      <ITEM Name="Notes" Data="-"/>
+      <ITEM Name="Analog Comparator" Data="2.0"/>
+      <ITEM Name="Analog Comparator Inputs" Data="2/3/0/0"/>
+      <ITEM Name="OPAMP" Data="-"/>
+      <ITEM Name="TRIAMP" Data="-"/>
+      <ITEM Name="Vref" Data="YES"/>
+      <ITEM Name="Random Number Generator" Data="-"/>
+      <ITEM Name="Memory mapped Crytpo Acceleration unit" Data="-"/>
+      <ITEM Name="Tamper Detect [DryIce]" Data="-"/>
+      <ITEM Name="Number of External Tamper Pins" Data="-"/>
+      <ITEM Name="Passive Tamper Pins" Data="-"/>
+      <ITEM Name="Active Tamper Pins" Data="-"/>
+      <ITEM Name="CRC" Data="YES"/>
+      <ITEM Name="Debug" Data="JTAG, cJTAG, SWD"/>
+      <ITEM Name="Trace" Data="TPIU, FPB, DWT, ITM"/>
+      <ITEM Name="Serial Programming Interface" Data="-"/>
+      <ITEM Name="True opendrain" Data="-"/>
+      <ITEM Name="BME [Bit Manipulation Engine]" Data="-"/>
+      <ITEM Name="NMI" Data="YES"/>
+      <ITEM Name="Voltage Range [V]" Data="1.71-3.6"/>
+      <ITEM Name="Flash Write V" Data="1.71"/>
+      <ITEM Name="Temp Range [C]" Data="-40 to 105"/>
+      <ITEM Name="Data Sheet Document Number" Data="K02P64M100SFA"/>
+    </DEVICE>
+  </FAMILY>
+</FEATURES>
