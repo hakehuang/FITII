@@ -29,6 +29,7 @@ public class Parse {
 		int TotalRow = 631;
 		//int TotalRow = Integer.parseInt(args[2]);
 		int StartRow = 8;
+		int TitleRow = 4;
 		//int StartRow =  Integer.parseInt(args[3]);
 		Document document = DocumentHelper.createDocument();
 		Boolean isEx10 = true;
@@ -43,6 +44,7 @@ public class Parse {
 			// <FEATURES>
 			System.out.println("========FEATURES========");
 			Element rootElement = document.addElement("FEATURES");
+			rootElement.addAttribute("Name", sheet.getRow(TitleRow).getCell(0).getStringCellValue());
 			Iterator<Row> rows = sheet.rowIterator();
 			String Famliy = "";
 			Element familyElement = null;
@@ -95,16 +97,22 @@ public class Parse {
 							// System.out.println("unsuported sell type");
 							break;
 						}
+						//check whether column is hidden
+						if(sheet.isColumnHidden(cell.getColumnIndex())){
+							item.addAttribute("Show", "0");
+						}
+							
 					}
 				}
 				if (row.getRowNum() > (StartRow - 2)
 						&& row.getRowNum() < (TotalRow - 2)) {
-					if (!Famliy.equals(row.getCell(1).getStringCellValue())) {
+					//Parse sub family
+					String cFamily = row.getCell(1).getStringCellValue().replaceAll("[0-9]", "");
+					if (!Famliy.equals(cFamily)) {
 						System.out.println("========FAMLIY========");
 						familyElement = rootElement.addElement("FAMILY");
-						familyElement.addAttribute("Name", row.getCell(1)
-								.getStringCellValue());
-						Famliy = row.getCell(1).getStringCellValue();
+						familyElement.addAttribute("Name", cFamily);
+						Famliy = cFamily;
 					}
 					Element Device = null;
 					while (cells.hasNext()) {
