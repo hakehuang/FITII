@@ -1,4 +1,0 @@
-INDEX VERSION 1.126+C:\Android-ST\STM32List\.metadata\.plugins\org.eclipse.jdt.core
-3406581547.index
-1669106777.index
-718963104.index
